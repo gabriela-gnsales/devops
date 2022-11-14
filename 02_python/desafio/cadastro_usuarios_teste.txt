@@ -1,0 +1,6 @@
+Nome,Gênero,E-mail,Telefone,CPF,Data de nascimento,Idade
+Jhonatas,M,jhony@hotmail.edu,(21) 99999-9999,384.297.528-70,13/11/1987,34
+Maria,O,maria@yahoo.br,(61) 98888-8888,384.297.528-70,15/04/1964,58
+Enzo,M,enzo@gmail.com,(11) 97777-7777,384.297.528-70,02/03/2019,3
+Gabriela,F,gabi@gmail.com,(43) 93333-2222,384.297.528-70,20/12/2014,7
+Joao,O,joao@gmail.com,(55) 94444-1111,384.297.528-70,05/07/1945,77

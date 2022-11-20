@@ -1,25 +1,71 @@
 # GIT / GITHUB
 
-### COMANDOS BÁSICOS
-* `git init`
-* `git add .`
-* `git add *`
-* `git push origin main`
-* `git pull`
-* `git commit -m "Descrição commit"` -> `-m` é uma flag que aponta para a mensagem de descrição
+### Git
+  Ferramenta/sistema de versionamento e monitoramento de código
+  * aponta para a branch atual → `cat .git/HEAD`
+  * onde está apontando uma branch para o respectivo commit → `cd .git/refs`
+  * onde os arquivos estão sendo salvos, de forma compactada → pasta `cd .git/objects`
+
+### GitHub / GitLab / Bitbucket / AWS CodeCommit ...
+##### Plataformas de versionamento, de forma distribuída, centralizada e global
+* GitHub é o mais utilizado → centraliza os principais códigos OpenSource
+* GitHub Pages (documentação)
+* Interface gráfica
+
+### Estrutura Git Flow: 
+* __main / master:__ branch prinicpal que aponta para o ambiente de produção
+* __feature:__ ambiente de desenvolvimento de features, desenvolvimento da história
+* __develop:__ apontar para o ambiente de desenvolvimento, fazer o deploy e implantar na conta da AWS de desenvolvimento
+* __realese / homolog:__ implantar numa conta para os stackholders (gerentes, POs...) homologarem
+* __hotfix:__ branch destinada para quando há algum bug a ser corrigido; branch gerada a partir da main
+
+__OBS:__ outra estrutura para fazer o gerenciamento de branchs → _Trunk Based Development_
+
+__branch:__ apontamento para um determinado commit; cópias do código; cada branch é um estado atual do código
+__commit:__ entregável, mostra determinado satus do código, snapshot, confirmação da entrega
+
+### Principais comandos:
+* `git init` → inicializar o repositório
+* `git status` → verificar status dos arquivos do repositório
+* `git add <nome(s) do(s) arquivo(s)>` ou `git add . ` (todos os arquivos) ou `git add *` → adicionar os arquivos do repositório para serem monitorados/versionados pelo git 
+* `git commit -m 'Mensagem - descrição commit'` → salva as as alterações, isto é, o status e a versão atual; tem um hash que dá para buscar pelos primeiros 4/5 dígitos
+  * `-m` é uma flag que aponta para a mensagem de descrição
 * `git commit <nome-do-arquivo> -m "Mensagem de alteração"`
 * `git commit -am "Descrição commit"`
+* `git push <nome repositório remoto> <nome branch>` → `git push origin main` → enviar o código para o repositório remoto (origin)
+* `git pull` → trazer o código do repositório remoto para o local, sincronizar
+* `git merge develop main` → juntar as branchs, necessitando resolver conflitos em alguns casos
+
+### Comandos branchs
+* `git branch` → saber qual branch está e quantas branchs têm
+* `git checkout <nome_branch>` / `git switch <nome_branch>` → trocar de branch
+* `git checkout -b <nome_nova_branch>` / `git switch -c <nome_nova_branch>` → criar uma nova branch e trocar para ela aparecer 
+[Diferença entre "git switch" e "git checkout"? - Stack Overflow em Português](https://pt.stackoverflow.com/questions/533866/qual-a-diferença-entre-git-switch-e-git-checkout)
+
+### Comandos remote
+* `git remote` → mostrar o nome dos repositórios remotos
+* `git remote -v` →
+* `git remote add origin (ou outro nome) <URL repositório remoto (no GitHub ou outra plataforma)>` →
+  * origin = nome padrão do repositório remoto, mas pode ser qualquer outro
+* `git remote set-url origin git@github.com:nome_usuario/nome_repositorio.git` →
+* `git remote remove <name>` → remover apontamento do repositório remoto
+* `git remote rename <old name> <new name>` → renomear URL do repositório remoto
+
+
+* __PR (pull request):__ requisição para fazer o merge de 2 branchs
+* __clone do repositório:__ clono o repositório para minha máquina e fica isolado do repositório raiz/origem
+* __fork do repositório:__ clono o repositório para minha máquina e fica atrelado ao repositório raiz/origem, sinzronizado, podendo mandar uma PR → funcionamento do OpenSource
+
+__OpenSource:__ plataforma aberta, código público → é possível ler a estrutura do código, alterá-la e repassar/recompartilhar com a alteração; projeto que a comunidade contribui; 2 instituições fundamentais nesse processo:
+* Linux Foundation
+* CNCF - Cloud Native Computing Foundation 
+
+
 * `git diff`
 * `git restore`
 * `git restore --staged`
-* `git remote`
-* `git remote -v`
-* `git remote add origin (ou outro nome) <url>`
-* `git remote set-url origin git@github.com:nome_usuario/nome_repositorio.git`
-* `git remote remove origin`
-* `git checkout nome_branch` / `git switch nome_branch`-> trocar de branch
-* `git checkout -b nome_nova_branch` / `git switch -c nome_nova_branch`-> criar uma nova branch e trocar para ela aparecer 
-  * [Qual a diferença entre "git switch" e "git checkout"? - Stack Overflow em Português](https://pt.stackoverflow.com/questions/533866/qual-a-diferença-entre-git-switch-e-git-checkout)
+
+ 
 
 __->__ Para criar um novo repositório no GitHub pelo CLI: `gh repo create [<name>] [flags]`
 __->__ Para desfazer um commit: `git reset HEAD~1`
@@ -45,8 +91,8 @@ __->__ Para ver o SHA1: git log -> `ls .git/objects`
 * CHERRY-PICK = 
 
 ### BRANCHS COMUNS
-* __master / main:__ ambiente produtivo -> EX: portal sem o botão Home
-* __homolog:__ ambiente homologação -> EX: portal com o botão Home
+* __master / main:__ ambiente produtivo → ex: portal sem o botão Home
+* __homolog:__ ambiente homologação → ex: portal com o botão Home
 * __develop:__ ambiente develop
 * __feature:__ desenvolver a sua história
 
@@ -55,34 +101,43 @@ __->__ Para ver o SHA1: git log -> `ls .git/objects`
 *  `git tag -a v0.0.1`
 * `git tag --list`
 
-## REVISÃO
+### Ciclo de vida do software:
+* Alpha, beta, release candidate, GA (general available)
+  * Major: quando há uma quebra de compatibilidade da aplicação com a versão anterior
+  * Minor: alteração que acrescenta uma feature nova, mas mantém a compatibilidade
+  * Path: correção de bug 
+* `git tag v1.2.5`
 
-### Git
-  Ferramenta de versionamento
+`.gitignore` → definir arquivos para o git não monitorar 
 
-### GitHub
-  Plataforma de versionamento
-  GitHub Pages (documentação)
-  Interface gráfica
+__IaC:__ infra as a code
 
-### Estrutura Git Flow: 
-* feature, develop, realese, main, hotfix
+### Arquivos de marcação
+* __XML:__ mais antigo, utilizado na década de 90/2000 para fazer a comunicação entre sistemas, muito grande e complexo de ler, dificultava para absorver o conteúdo, ocupava muito largura de rede
+* __JSON:__ veio para substituir o XML; estrutura de chave valor
+  * Utilizado: padrão da web de comunicação, criação de IaC
+  * Não utilizado:
+* XML
+* __YAML:__
+  * Utilizado: padronizção de arquivos e criação de recursos via IaC (terraform, cloudformation, kubernetes)
+  * Não utilizado: comunicação entre serviços; na elaboração do contrato até é usado, mas para enviar e receber informações é raro (JSON é usado nesse caso)
 
-commit: entregável, mostra determinado satus do código, snapshot
+***
 
-### Principais comenados:
-* `git init`
-* `git add .`
-* `git commit -m 'Mensagem'` -> tem um hash que dá para buscar pelos primeiros 4/5 dígitos
-* `git push origin main`-> enviar o código para o repositório remoto (origin)
-* `git pull` -> trazer código do repositório remoto para o local
-* `git merge develop main`-> juntar as branchs
+#### Database / Banco de dados:
+* faz o armazenamento das informações/dados
 
-### Cliclo de vida do software:
-  Alpha, beta, release candidate, GA
-  Major, Minor e Path 1.2.5
-  `git tag v1.2.5`
+#### Back-end:
+* conecta com o banco de dados por meio do CRUD (create, read, update, delete)
+* armazena os dados no database
+* expõe uma API (Rest...)
+* deve expor os dados do database de forma segura (algumas informações são sensíveis)
 
-`.gitignore`
+#### Front-end:
+* consome a API, os dados 
+* renderiza os dados em uma tela/interface
 
+__API (Application Programming Interface)__
+→ significa que vai pegar uma informação de um ponto e irá expor em outro ponto, por meio de um contrato / via protocolo (HTTP...) para ambas as partes conseguirem se comunicar, autenticando quem está requisitando a informação (token) para autorizar ou não
 
+__ENDPOINT:__ ponto final, endereço de um link

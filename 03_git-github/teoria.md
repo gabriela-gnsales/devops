@@ -13,7 +13,7 @@
 * Interface gráfica
 
 ### Estrutura Git Flow: 
-* __main / master:__ branch prinicpal que aponta para o ambiente de produção
+* __main / master:__ branch principal que aponta para o ambiente de produção
 * __feature:__ ambiente de desenvolvimento de features, desenvolvimento da história
 * __develop:__ apontar para o ambiente de desenvolvimento, fazer o deploy e implantar na conta da AWS de desenvolvimento
 * __realese / homolog:__ implantar numa conta para os stackholders (gerentes, POs...) homologarem
@@ -27,14 +27,20 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 ### Principais comandos:
 * `git init` → inicializar o repositório
 * `git status` → verificar status dos arquivos do repositório
-* `git add <nome(s) do(s) arquivo(s)>` ou `git add . ` (todos os arquivos) ou `git add *` → adicionar os arquivos do repositório para serem monitorados/versionados pelo git 
+* `git add <nome(s) do(s) arquivo(s)>` ou `git add . ` (todos os arquivos) ou `git add *` ou `git add -A` → adicionar os arquivos do repositório para serem monitorados/versionados pelo git 
 * `git commit -m 'Mensagem - descrição commit'` → salva as as alterações, isto é, o status e a versão atual; tem um hash que dá para buscar pelos primeiros 4/5 dígitos
   * `-m` é uma flag que aponta para a mensagem de descrição
 * `git commit <nome-do-arquivo> -m "Mensagem de alteração"`
 * `git commit -am "Descrição commit"`
 * `git push <nome repositório remoto> <nome branch>` → `git push origin main` → enviar o código para o repositório remoto (origin)
-* `git pull` → trazer o código do repositório remoto para o local, sincronizar
+* `git pull` → trazer o código do repositório remoto para o local, sincronizar, atualizar o repositório local
 * `git merge develop main` → juntar as branchs, necessitando resolver conflitos em alguns casos
+* `git diff` → para exibir as alterações nos arquivos antes de realizar o comando `git add .`
+
+> -m <msg>
+> --message=<msg>
+> Use the given <msg> as the commit message. If multiple -m options are given, their values are concatenated as separate paragraphs.
+> The -m option is mutually exclusive with -c, -C, and -F.
 
 ### Comandos branchs
 * `git branch` → saber qual branch está e quantas branchs têm
@@ -51,6 +57,17 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git remote remove <name>` → remover apontamento do repositório remoto
 * `git remote rename <old name> <new name>` → renomear URL do repositório remoto
 
+### Comandos para desfazer modificações / fazer alterações e manipulações nos commits:
+* `git restore <caminho (no caso de um arquivo que foi excluído de uma pasta) ou arquivo a ser restaurado>` → para desfazer uma alteração que não foi commitada ainda / desfazer uma marcação de adição ou remoção de arquivos
+* `git restore --staged` → para reverter um arquivo que foi adicionado ou removido acidentalmente depois do `git add .` → para torná-lo untracked (não rastreado pelo git)
+* `git reset <sha1-do-commit>` = alteração que foi commitada, permitirá reverter o commit. Git descarta a execução dos commits após aquele especificado, mas mantém suas alterações.
+* `git reset --hard <sha1-do-commit>` = Se quisermos realmente descartar as mudanças feitas após aquele commit, devemos informar o parâmetro `--hard`
+* `git revert` = alteração que foi commitada, mas acaba apagando o histórico de commits
+* CHERRY-PICK = 
+
+➡ Para criar um novo repositório no GitHub pelo CLI: `gh repo create [<name>] [flags]`
+➡ Para desfazer um commit: `git reset HEAD~1`
+➡ Para ver o SHA1: git log → `ls .git/objects`
 
 * __PR (pull request):__ requisição para fazer o merge de 2 branchs
 * __clone do repositório:__ clono o repositório para minha máquina e fica isolado do repositório raiz/origem
@@ -60,52 +77,14 @@ __OpenSource:__ plataforma aberta, código público → é possível ler a estru
 * Linux Foundation
 * CNCF - Cloud Native Computing Foundation 
 
-
-* `git diff`
-* `git restore`
-* `git restore --staged`
-
- 
-
-__->__ Para criar um novo repositório no GitHub pelo CLI: `gh repo create [<name>] [flags]`
-__->__ Para desfazer um commit: `git reset HEAD~1`
-
-#
-
--m <msg>
---message=<msg>
-Use the given <msg> as the commit message. If multiple -m options are given, their values are concatenated as separate paragraphs.
-
-The -m option is mutually exclusive with -c, -C, and -F.
-o -m é de mensagem
-#
-
-__->__ Para ver o SHA1: git log -> `ls .git/objects`
-
-
-### Para fazer alterações/manipulações nos commits:
-* `git restore` = alteração que não foi commitada ainda / desfazer uma marcação de adição ou remoção de arquivos
-* `git reset <sha1-do-commit>` = alteração que foi commitada, permitirá reverter o commit. Git descarta a execução dos commits após aquele especificado, mas mantém suas alterações.
-* `git reset --hard <sha1-do-commit>` = Se quisermos realmente descartar as mudanças feitas após aquele commit, devemos informar o parâmetro `--hard`
-* `git revert` = alteração que foi commitada, mas acaba apagando o histórico de commits
-* CHERRY-PICK = 
-
-### BRANCHS COMUNS
-* __master / main:__ ambiente produtivo → ex: portal sem o botão Home
-* __homolog:__ ambiente homologação → ex: portal com o botão Home
-* __develop:__ ambiente develop
-* __feature:__ desenvolver a sua história
-
-### TAG
-
-*  `git tag -a v0.0.1`
-* `git tag --list`
-
 ### Ciclo de vida do software:
 * Alpha, beta, release candidate, GA (general available)
-  * Major: quando há uma quebra de compatibilidade da aplicação com a versão anterior
-  * Minor: alteração que acrescenta uma feature nova, mas mantém a compatibilidade
-  * Path: correção de bug 
+  * __Major:__ quando há uma quebra de compatibilidade da aplicação com a versão anterior
+  * __Minor:__ alteração que acrescenta uma feature nova, mas mantém a compatibilidade
+  * __Path:__ correção de bug
+##### TAG
+* `git tag -a v0.0.1`
+* `git tag --list`
 * `git tag v1.2.5`
 
 `.gitignore` → definir arquivos para o git não monitorar 

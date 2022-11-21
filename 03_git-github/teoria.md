@@ -44,7 +44,7 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 
 ### Comandos remote
 * `git remote` → mostrar o nome dos repositórios remotos
-* `git remote -v` →
+* `git remote -v` → para ver o endereço do repositório remoto
 * `git remote add origin (ou outro nome) <URL repositório remoto (no GitHub ou outra plataforma)>` →
   * origin = nome padrão do repositório remoto, mas pode ser qualquer outro
 * `git remote set-url origin git@github.com:nome_usuario/nome_repositorio.git` →
@@ -129,8 +129,8 @@ __IaC:__ infra as a code
 
 #### Back-end:
 * conecta com o banco de dados por meio do CRUD (create, read, update, delete)
+* disponibiliza um servior web expondo uma aplicação / uma API (Rest...) / um endpoint → rodando na porta X (ex: 8080) com protocolo X (ex: HTTP)
 * armazena os dados no database
-* expõe uma API (Rest...)
 * deve expor os dados do database de forma segura (algumas informações são sensíveis)
 
 #### Front-end:
@@ -141,3 +141,19 @@ __API (Application Programming Interface)__
 → significa que vai pegar uma informação de um ponto e irá expor em outro ponto, por meio de um contrato / via protocolo (HTTP...) para ambas as partes conseguirem se comunicar, autenticando quem está requisitando a informação (token) para autorizar ou não
 
 __ENDPOINT:__ ponto final, endereço de um link
+
+__JAVA__
+* JRE
+* JDK
+* JVM - Java Virtual Machine → compila a aplicação
+
+__Biblioteca:__ pedaços de código prontos que pode ser importado para a aplicação para utilizá-la 
+
+__Framework:__ nível mais macro, contém bibliotecas com partes de códigos que poderão ser executados, vai subir um servidor para gerenciar a aplicação (faz essa configuração) → conjunto de bibliotecas e faz a comunicação com o sistema operacional e oferece mais recursos para gerenciar e provisionar a aplicação, vai abstrair muitas informaçãoes para o desenvolvimento da aplicação
+
+##### Métodos que fazem ações/requisições HTTP: 
+  * POST: criação
+  * GET: consulta
+  * PUT: atualização
+  * DELETE: exclusão
+###### Postman = client HTTP

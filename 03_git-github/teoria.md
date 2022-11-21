@@ -1,6 +1,7 @@
 # GIT / GITHUB
 
 ### Git
+[Documentação do Git](https://git-scm.com/docs/git/pt_BR)
   Ferramenta/sistema de versionamento e monitoramento de código
   * aponta para a branch atual → `cat .git/HEAD`
   * onde está apontando uma branch para o respectivo commit → `cd .git/refs`
@@ -12,7 +13,11 @@
 * GitHub Pages (documentação)
 * Interface gráfica
 
-### Estrutura Git Flow: 
+### Fluxos de Trabalho (Workflow) 
+* Git Flow, GitHub Flow e GitLab Flow
+>Dica: uma boa prática na hora de criar os branches é prefixá-los com o tipo do trabalho que será feito: para novas funcionalidades, nomeie-o como `feature/<nome-da-funcionalidade>`; para correções de bugs, use `hotfix/<descrição-da-correção>`; e se o Fluxo que você escolher necessidade de branches de releases, chame-os de `release/<versão>`.
+
+#### Estrutura Git Flow: 
 * __main / master:__ branch principal que aponta para o ambiente de produção
 * __feature:__ ambiente de desenvolvimento de features, desenvolvimento da história
 * __develop:__ apontar para o ambiente de desenvolvimento, fazer o deploy e implantar na conta da AWS de desenvolvimento
@@ -34,8 +39,15 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git commit -am "Descrição commit"`
 * `git push <nome repositório remoto> <nome branch>` → `git push origin main` → enviar o código para o repositório remoto (origin)
 * `git pull` → trazer o código do repositório remoto para o local, sincronizar, atualizar o repositório local
-* `git merge develop main` → juntar as branchs, necessitando resolver conflitos em alguns casos
+* `git merge <nome da branch com os códigos que serão passados para a branch atual>` → juntar as branchs, necessitando resolver conflitos em alguns casos
+> A mesclagem de um branch é utilizada quando queremos incorporar todas as modificações efetuadas naquele branch para o qual estamos trabalhando neste momento - ao contrário do `cherry-pick`, que traz apenas um único commit.
 * `git diff` → para exibir as alterações nos arquivos antes de realizar o comando `git add .`
+* `git diff <branch 1> <branch 2>` → para ver as diferenças entre branches
+* `git stash push` → para salvar essas alterações, guardá-las e removê-las do estado atual do seu projeto, mantendo-o "limpo" novamente
+* `git stash pop` → para restaurar as modificações
+* `git stash list` → para ver a lista de modificações feitas
+* `git stash pop <número da modificação>` → para restaurá-la
+* `git stash apply` → não remove aquela alteração da pilha, permitindo então a rápida mudança entre diversos estados salvos em seguida
 
 > -m <msg>
 > --message=<msg>
@@ -57,13 +69,35 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git remote remove <name>` → remover apontamento do repositório remoto
 * `git remote rename <old name> <new name>` → renomear URL do repositório remoto
 
-### Comandos para desfazer modificações / fazer alterações e manipulações nos commits:
+### Comandos para desfazer modificações / fazer alterações e manipulações nos commits e nas branchs:
 * `git restore <caminho (no caso de um arquivo que foi excluído de uma pasta) ou arquivo a ser restaurado>` → para desfazer uma alteração que não foi commitada ainda / desfazer uma marcação de adição ou remoção de arquivos
 * `git restore --staged` → para reverter um arquivo que foi adicionado ou removido acidentalmente depois do `git add .` → para torná-lo untracked (não rastreado pelo git)
-* `git reset <sha1-do-commit>` = alteração que foi commitada, permitirá reverter o commit. Git descarta a execução dos commits após aquele especificado, mas mantém suas alterações.
-* `git reset --hard <sha1-do-commit>` = Se quisermos realmente descartar as mudanças feitas após aquele commit, devemos informar o parâmetro `--hard`
-* `git revert` = alteração que foi commitada, mas acaba apagando o histórico de commits
-* CHERRY-PICK = 
+* `git restore --source <hash do commit>` → para reverter determinado arquivo para o commit informado
+* `git reset <sha1-do-commit>` → alteração que foi commitada, permitirá reverter o commit; git descarta a execução dos commits após aquele especificado, mas mantém suas alterações; apaga o commit do histórico
+* `git reset --hard <sha1-do-commit>` → se quisermos realmente descartar as mudanças feitas após aquele commit, devemos informar o parâmetro `--hard`
+* `git revert` → cria um commit "inverso", revertendo as modificações introduzidas → linhas que foram removidas serão adicionadas, arquivos que foram adicionados serão excluídos, e assim sucessivamente
+* `git commit --amend` → para editar um commit
+* `git commit --amend --no-edit` → para editar um commit sem editar a mensagem
+* `git cherry-pick` → para escolher individualmente commits (de uma branch) para serem incorporados a outro trabalho/branch
+* `git rebase <nome-da-branch-base> <nome-da-base-que-quero-atualizar>` → [Documentação oficial do Git: Rebase](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Rebase)
+  * `git push -f origin` → informar o servidor remoto que houve uma grande modificação, passando a opção `-f` para forçar a reescrita do histórico no `push`
+
+### Comandos para visualizar o histórico de commits
+* `git log` → para listar todos os commits que foram realizados
+> Cada bloco apresenta um commit, com seu hash SHA-1, autor (que configuramos globalmente no início deste material), data e a mensagem (por isso a importância de utilizar mensagens explicativas)
+* `git log --pretty=oneline` → para mostrar de um jeito mais clean, simplificado, em uma linha
+* `git log --follow <nome arquivo>` → para restringir os logs apenas para um arquivo
+* `git show <id do commit mostrado no git log = hash` → para visualizar as alterações feitas em um único commit; é suficiente pegar apenas os 4 ou 5 primeiros códigos do ID (hash)
+* `git blame <nome arquivo>` → para saber as últimas modificações feitas em cada linha de um arquivo
+> Com esse comando, conseguimos ver a versão curta do hash SHA-1, o autor e a data do último commit que modificou aquela linha. Esse comando é muito útil quando quisermos saber quando uma certa linha foi alterada pela última vez.
+
+> O __hash SHA-1__ é uma identificação única do commit → [The Git Commit Hash](https://www.mikestreety.co.uk/blog/the-git-commit-hash/)
+
+
+➡ Para gerar um arquivo de patch: `git diff -p > ~/meu-patch.diff`
+➡ Para gerar patches com metadados dos commits; gera um arquivo pronto para ser enviado por email: `git format-patch`
+> Os patches são utilizados quando você não possui acesso de escrita ao repositório (ou seja, não pode efetuar commits nele) mas precisa compartilhar certas alterações com outras pessoas até que o responsável pelo projeto aceite as mudanças.
+* `git apply` → para compartilhar o arquivo com outras pessoas para que elas apliquem o patch
 
 ➡ Para criar um novo repositório no GitHub pelo CLI: `gh repo create [<name>] [flags]`
 ➡ Para desfazer um commit: `git reset HEAD~1`
@@ -72,6 +106,7 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * __PR (pull request):__ requisição para fazer o merge de 2 branchs
 * __clone do repositório:__ clono o repositório para minha máquina e fica isolado do repositório raiz/origem
 * __fork do repositório:__ clono o repositório para minha máquina e fica atrelado ao repositório raiz/origem, sinzronizado, podendo mandar uma PR → funcionamento do OpenSource
+> O "fork" consiste em duplicar um repositório que você não possui acesso de escrita para sua própria conta, fazer as alterações nessa cópia e informar ao dono do projeto através de um Pull Request (PR) que essa sua versão possui funcionalidades que podem beneficiar aquele sistema. Esse processo é a base da colaboração da comunidade, e é o que fez o GitHub crescer tanto em popularidade.
 
 __OpenSource:__ plataforma aberta, código público → é possível ler a estrutura do código, alterá-la e repassar/recompartilhar com a alteração; projeto que a comunidade contribui; 2 instituições fundamentais nesse processo:
 * Linux Foundation
@@ -82,12 +117,16 @@ __OpenSource:__ plataforma aberta, código público → é possível ler a estru
   * __Major:__ quando há uma quebra de compatibilidade da aplicação com a versão anterior
   * __Minor:__ alteração que acrescenta uma feature nova, mas mantém a compatibilidade
   * __Path:__ correção de bug
-##### TAG
+##### TAGS → demarcando versões
+* `git tag -a v0.0.1 -m 'Mensagem explicando a versão do sistema'`
 * `git tag -a v0.0.1`
 * `git tag --list`
-* `git tag v1.2.5`
 
+### Ignorando arquivos
 `.gitignore` → definir arquivos para o git não monitorar 
+> Esses arquivos podem ser configurações do ambiente com informações sensíveis (por exemplo, senhas para bancos de dados), pastas criadas pela própria IDE ou editor de texto (aplicações que utilizamos para desenvolver) que contém detalhes do projeto, arquivos de logs gerados pela aplicação, entre outros.
+
+> Por exemplo: imagine que nossa aplicação precise se conectar a um banco de dados, isto é, um sistema utilizado para armazenar e consultar informações. É uma boa prática criar um arquivo chamado .env e colocar as credenciais de acesso lá - o que chamamos de variáveis de ambiente. Além disso, assuma que ela gera vários logs de execução e erros na pasta logs/.
 
 __IaC:__ infra as a code
 
@@ -104,7 +143,7 @@ __IaC:__ infra as a code
 ***
 
 #### Database / Banco de dados:
-* faz o armazenamento das informações/dados
+* utilizado para armazenar e consultar informações
 
 #### Back-end:
 * conecta com o banco de dados por meio do CRUD (create, read, update, delete)
@@ -135,4 +174,5 @@ __Framework:__ nível mais macro, contém bibliotecas com partes de códigos que
   * GET: consulta
   * PUT: atualização
   * DELETE: exclusão
+
 ###### Postman = client HTTP

@@ -10,6 +10,7 @@
 ### GitHub / GitLab / Bitbucket / AWS CodeCommit ...
 ##### Plataformas de versionamento, de forma distribuída, centralizada e global
 * GitHub é o mais utilizado → centraliza os principais códigos OpenSource
+> __OpenSource:__ plataforma aberta, código público → é possível ler a estrutura do código, alterá-la e repassar/recompartilhar com a alteração; projeto que a comunidade contribui; 2 instituições fundamentais nesse processo: __Linux Foundation__ e __Cloud Native Computing Foundation (CNCF)__ 
 * GitHub Pages (documentação)
 * Interface gráfica
 
@@ -108,10 +109,6 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * __fork do repositório:__ clono o repositório para minha máquina e fica atrelado ao repositório raiz/origem, sinzronizado, podendo mandar uma PR → funcionamento do OpenSource
 > O "fork" consiste em duplicar um repositório que você não possui acesso de escrita para sua própria conta, fazer as alterações nessa cópia e informar ao dono do projeto através de um Pull Request (PR) que essa sua versão possui funcionalidades que podem beneficiar aquele sistema. Esse processo é a base da colaboração da comunidade, e é o que fez o GitHub crescer tanto em popularidade.
 
-__OpenSource:__ plataforma aberta, código público → é possível ler a estrutura do código, alterá-la e repassar/recompartilhar com a alteração; projeto que a comunidade contribui; 2 instituições fundamentais nesse processo:
-* Linux Foundation
-* CNCF - Cloud Native Computing Foundation 
-
 ### Ciclo de vida do software:
 * Alpha, beta, release candidate, GA (general available)
   * __Major:__ quando há uma quebra de compatibilidade da aplicação com a versão anterior
@@ -128,17 +125,22 @@ __OpenSource:__ plataforma aberta, código público → é possível ler a estru
 
 > Por exemplo: imagine que nossa aplicação precise se conectar a um banco de dados, isto é, um sistema utilizado para armazenar e consultar informações. É uma boa prática criar um arquivo chamado .env e colocar as credenciais de acesso lá - o que chamamos de variáveis de ambiente. Além disso, assuma que ela gera vários logs de execução e erros na pasta logs/.
 
-__IaC:__ infra as a code
-
-### Arquivos de marcação
-* __XML:__ mais antigo, utilizado na década de 90/2000 para fazer a comunicação entre sistemas, muito grande e complexo de ler, dificultava para absorver o conteúdo, ocupava muito largura de rede
-* __JSON:__ veio para substituir o XML; estrutura de chave valor
+***
+### Arquivos/linguagens de marcação
+##### Sintaxes que adicionam contexto e informações aos dados brutos que estão sendo passados
+* __XML:__ eXtensible Markup Language → linguagem de marcação extensível 
+Mais antigo, utilizado na década de 90/2000 para fazer a comunicação entre sistemas, muito grande e complexo de ler, dificultava para absorver o conteúdo, ocupava muito largura de rede
+  * extensão: `.xml`
+* __JSON:__ JavaScript Object Notations → notação de objetos JavaScript
+Veio para substituir o XML; estrutura de chave valor
+  * extensão: `.json`
   * Utilizado: padrão da web de comunicação, criação de IaC
-  * Não utilizado:
-* XML
-* __YAML:__
+* __YAML:__ Yet Another Markup Language → mais uma linguagem de marcação →→ YAML Ain't Markup Language → YAML não é uma linguagem de marcação
+  * extensões: `.yaml` (recomendada oficialmente) ou `.yml`
   * Utilizado: padronizção de arquivos e criação de recursos via IaC (terraform, cloudformation, kubernetes)
   * Não utilizado: comunicação entre serviços; na elaboração do contrato até é usado, mas para enviar e receber informações é raro (JSON é usado nesse caso)
+
+>__IaC:__ infra as a code
 
 ***
 

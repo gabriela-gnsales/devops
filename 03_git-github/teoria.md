@@ -2,7 +2,8 @@
 
 ### Git
 [Documentação do Git](https://git-scm.com/docs/git/pt_BR)
-  Ferramenta/sistema de versionamento e monitoramento de código
+
+Ferramenta/sistema de versionamento e monitoramento de código
   * aponta para a branch atual → `cat .git/HEAD`
   * onde está apontando uma branch para o respectivo commit → `cd .git/refs`
   * onde os arquivos estão sendo salvos, de forma compactada → pasta `cd .git/objects`
@@ -28,6 +29,7 @@
 __OBS:__ outra estrutura para fazer o gerenciamento de branchs → _Trunk Based Development_
 
 __branch:__ apontamento para um determinado commit; cópias do código; cada branch é um estado atual do código
+
 __commit:__ entregável, mostra determinado satus do código, snapshot, confirmação da entrega
 
 ### Principais comandos:
@@ -50,10 +52,17 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git stash pop <número da modificação>` → para restaurá-la
 * `git stash apply` → não remove aquela alteração da pilha, permitindo então a rápida mudança entre diversos estados salvos em seguida
 
-> -m <msg>
-> --message=<msg>
-> Use the given <msg> as the commit message. If multiple -m options are given, their values are concatenated as separate paragraphs.
-> The -m option is mutually exclusive with -c, -C, and -F.
+__OBS:__
+
+`-m <msg>`
+
+`--message=<msg>`
+
+Use the given `<msg>` as the commit message. 
+
+If multiple `-m` options are given, their values are concatenated as separate paragraphs.
+
+The `-m` option is mutually exclusive with -c, -C, and -F.
 
 ### Comandos branchs
 * `git branch` → saber qual branch está e quantas branchs têm
@@ -96,12 +105,15 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 
 
 ➡ Para gerar um arquivo de patch: `git diff -p > ~/meu-patch.diff`
+
 ➡ Para gerar patches com metadados dos commits; gera um arquivo pronto para ser enviado por email: `git format-patch`
 > Os patches são utilizados quando você não possui acesso de escrita ao repositório (ou seja, não pode efetuar commits nele) mas precisa compartilhar certas alterações com outras pessoas até que o responsável pelo projeto aceite as mudanças.
 * `git apply` → para compartilhar o arquivo com outras pessoas para que elas apliquem o patch
 
 ➡ Para criar um novo repositório no GitHub pelo CLI: `gh repo create [<name>] [flags]`
+
 ➡ Para desfazer um commit: `git reset HEAD~1`
+
 ➡ Para ver o SHA1: git log → `ls .git/objects`
 
 * __PR (pull request):__ requisição para fazer o merge de 2 branchs

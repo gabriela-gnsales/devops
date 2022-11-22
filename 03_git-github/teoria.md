@@ -52,6 +52,8 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git stash pop <número da modificação>` → para restaurá-la
 * `git stash apply` → não remove aquela alteração da pilha, permitindo então a rápida mudança entre diversos estados salvos em seguida
 
+> pesquisar sobre `rebase`
+
 __OBS:__
 
 `-m <msg>`

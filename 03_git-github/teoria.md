@@ -91,6 +91,10 @@ The `-m` option is mutually exclusive with -c, -C, and -F.
 * `git cherry-pick` → para escolher individualmente commits (de uma branch) para serem incorporados a outro trabalho/branch
 * `git rebase <nome-da-branch-base> <nome-da-base-que-quero-atualizar>` → [Documentação oficial do Git: Rebase](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Rebase)
   * `git push -f origin` → informar o servidor remoto que houve uma grande modificação, passando a opção `-f` para forçar a reescrita do histórico no `push`
+  * `git push -u origin main`
+  * `git rm -r --cached <arquivo ou pasta que quer que o git pare de monitorar>` → para excluir do repositório remoto pastas/arquivos que foram incuídos no .gitignore depois
+  * `git commit -m 'Removendo arquivos da staging area'`
+  * `git branch -M main` → renomear branch para 'main'
 
 ### Comandos para visualizar o histórico de commits
 * `git log` → para listar todos os commits que foram realizados
@@ -130,6 +134,7 @@ The `-m` option is mutually exclusive with -c, -C, and -F.
 * `git tag -a v0.0.1 -m 'Mensagem explicando a versão do sistema'`
 * `git tag -a v0.0.1`
 * `git tag --list`
+* `git push origin v0.0.1`
 
 ### Ignorando arquivos
 `.gitignore` → definir arquivos para o git não monitorar 

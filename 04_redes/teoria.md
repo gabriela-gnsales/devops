@@ -19,17 +19,29 @@
 * surgimento dos principais players do mercado de redes: Cisco
 * surgimento de órgão reguladores (ICANN, ANSI, ISO, W3C)
 > devido a necessidade de padronização
-* Modelo OSI
-* Modelo TCP/IP
+
+#### Modelo OSI (Open System Interconnection)
+Esse modelo separa comunicação entre dispositivos em camadas, de tal forma que cada camada é responsável por uma determinada parte do processo de comunicação, e estabelece protocolos que devem ser utilizados e quais as boas práticas de comunicação.
+O modelo OSI é dividido em sete camadas, sendo elas:
+* __7 - Application (Aplicação):__ Responsável pela interação com o usuário, é nesta camada que temos os protocolos mais conhecidos como o HTTP, DNS, SMTP, FTP, entre outros, sendo realizada a coleta dos dados que são então enviados para a camada 6 (Apresentação).
+* __6 - Presentation (Apresentação):__ Responsável pela criptografia e compactação dos dados antes de enviá-los para a camada 5 (Sessão).
+* __5 - Sessão (Session):__ Responsável por estabelecer a comunicação entre dois dispositivos, denominada sessão, e pelo seu encerramento.
+* __4 - Transporte (Transport):__ Responsável por receber os dados da camada 5 (Sessão) e transformá-los em segmentos. Essa camada determina o controle de fluxo e a velocidade da transmissão entre remetente e receptor, e tem a preocupação de confirmar a integridade da mensagem entre origem e destino, seus principais protocolos são TCP e UDP. 
+* __3 - Rede (Network):__ Responsável pela transformação dos segmentos vindo da camada 4 em pacotes. Essa camada é responsável pela comunicação entre redes diferentes através do roteamento destes pacotes. O principal protocolo da camada 3 (Rede) é o protocolo IP, ele é responsável pelo endereçamento dos pacotes de rede, ou seja, é responsável por gerar um endereço ao seu computador, ou qualquer servidor, no momento que este conecta-se à internet. Atualmente existem dois formatos IPV4 e IPV6. O primeiro foi criado na década de 80 e é utilizado até hoje, ele possibilita o uso de aproximadamente 4 bilhões de endereços. Por mais que a quantidade de IP's disponíveis na versão 4 seja grande a internet como um todo cresceu demais e os IP's estão cada vez mais escassos, para resolver esse problema foi criado o IPV6 que tem capacidade de alocar por volta de 340 undecilhões de endereços.
+* __2 - Enlace (Data Link):__ Responsável pela fragmentação do pacote vindo da camada de rede em pequenos quadros. A ideia dessa camada é trabalhar com a comunicação entre dispositivos da mesma rede, onde cada quadro conterá o endereço físico de origem e destino de cada dispositivo. Este endereço é denominado MAC (Media Access Control), e é responsável por endereçar fisicamente cada placa de rede às chamadas NIC 's (Network Interface Card). Os principais protocolos desta camada são: Ethernet, PPP e Token Ring. 
+* __1 - Física (Physical):__ Responsável pela padronização do hardware da rede, através de padrões de cabos, fibras, wireless e a conexão física entre esses dispositivos. Essa camada transforma o dado em bit para a comunicação elétrica no meio físico. Essa transformação acontece geralmente por meio do modem que tem a função de modular de demodular o sinal vindo do ISP. O sinal pode vir tanto por pulso elétrico através de um meio guiado como de ondas de rádio de um meio wireless.
+
+#### Modelo TCP/IP
+Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais protocolos da Internet, o protocolo TCP, da camada 4 (Transporte), e o protocolo IP, da camada 3 (Redes). A ideia do modelo TCP/IP é agrupar camadas do OSI com responsabilidades semelhantes, transformando a representação de 7 camadas em apenas 4. 
 
 #### Reguladores internacionais
-* __ICANN:__ regulamentar a distribuição ranges de IP's (endereços) para os continentes / regiões do planeta e respons´vale também pela .... DNs
-* __ANSI:__ padronização internacional de cabeamento estruturado
-* __ISO:__ padronização internacional de normas
-* __W3C:__ consórcio formado por empresas de tecnologia  que desenvolvem padrões para a criação e manutenção de websites; responsável pelos padrões HTML e CSS
+* __ICANN__ (Internet Corporation for Assigned Names and Numbers): regulamentar a distribuição dde ranges de IP's (endereços) para os continentes / regiões do planeta e responsável também pelo gerenciamento dos servidores de DNS's
+* __ANSI__ (American National Standards Institute): padronização internacional de cabeamento estruturado
+* __ISO__ (International Organization for Standardization): padronização internacional de normas
+* __W3C__ (World Wide Web Consortium): consórcio formado por empresas de tecnologia  que desenvolvem padrões para a criação e manutenção de websites; responsável pelos padrões HTML e CSS
 
 #### Reguladores nacionais
-* __Anatel:__ agência reguladora responsável  pelo setor de comunicação brasileira (comunicação geral, não só pela Internet)
-* __ABNT:__ entidade responsável pela padronização de normas brasileiras; utilizada para definir as padronizações de cabeamento estruturado no Brasil como, por exemplo, a ABNT NBR 14565
-* __CGI:__ órgão responsável pelos serviços de Internet no Brasil; responsável pelos servidores de domínio `.br` (focado no tráfego / comunicação na Internet em si)
+* __Anatel__ (Agência Nacional de Telecomunicações): agência reguladora responsável  pelo setor de comunicação brasileira (comunicação geral, não só Internet)
+* __ABNT__ (Associação Brasileira de Normas Técnicas): entidade responsável pela padronização de normas brasileiras; utilizada para definir as padronizações de cabeamento estruturado no Brasil como, por exemplo, a ABNT NBR 14565
+* __CGI__ (Comitê Gestor da Internet): órgão responsável pelos serviços de Internet no Brasil; responsável pelos servidores de domínio `.br` (focado no tráfego / comunicação na Internet em si)
 * __Registro BR:__ site responsável pela aquisição de domínios `.br`

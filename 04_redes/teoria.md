@@ -5,8 +5,17 @@
 * dispositivo lógico (máquinas virtuais...)
 * conexão entre 2 ou mais dispositivos
 * configuração física (por meio de ccabos ou ondas de rádio) e lógica
+* endereço
+  * lógico (decimal): __IP__ → muda a todo momento, toda vez que a máquina é iniciada...
+  * físico (hexadecimal → presença de nºs e letras): __MAC__ → não muda (cravado na placa de rede / NIC / interface)
+  * __máscara de rede__: diz qual parte do endereço corresponde ao endereço da rede e qual parte corresponde ao endereço host
 
-### Internet
+> 1 = positivo (emissão de pulso elétrico)
+> 0 = negativo (ausência de pulso elétrico)
+> Bit: 0 ou 1
+> Byte: conjunto de 8 Bits = ex: 10110110
+
+### História Internet
 * rede mundial de computadores
 * década de 40: computadores gigantes para cálculos matemáticos através de alavancas e ? perfurados
 * década de 60: 

@@ -3,6 +3,8 @@
 ### Rede
 * troca de informação / conteúdo / de pulsos elétricos (0 e 1)
 * dispositivo lógico (máquinas virtuais...)
+* conexão entre 2 ou mais dispositivos
+* configuração física (por meio de ccabos ou ondas de rádio) e lógica
 
 ### Internet
 * rede mundial de computadores
@@ -16,7 +18,7 @@
  * cada país começou a desenvolver seu prórpio projeto com base no ARPANET → os padrões desenvolvidos não se conversavam
  * Internet
   > em síntese: devido a necessidade de comunicação, principlamente pela situação da Guerra → teve um cheque em branco para avançar no desenvolvimento de tecnologia
-* surgimento dos principais players do mercado de redes: Cisco
+* surgimento dos __principais players do mercado de redes:__ Cisco, Juniper Networks, Palo Alto Networks, Fortinet, Huawei
 * surgimento de órgão reguladores (ICANN, ANSI, ISO, W3C)
 > devido a necessidade de padronização
 
@@ -32,7 +34,7 @@ O modelo OSI é dividido em sete camadas, sendo elas:
 * __1 - Física (Physical):__ Responsável pela padronização do hardware da rede, através de padrões de cabos, fibras, wireless e a conexão física entre esses dispositivos. Essa camada transforma o dado em bit para a comunicação elétrica no meio físico. Essa transformação acontece geralmente por meio do modem que tem a função de modular de demodular o sinal vindo do ISP. O sinal pode vir tanto por pulso elétrico através de um meio guiado como de ondas de rádio de um meio wireless.
 
 #### Modelo TCP/IP
-Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais protocolos da Internet, o protocolo TCP, da camada 4 (Transporte), e o protocolo IP, da camada 3 (Redes). A ideia do modelo TCP/IP é agrupar camadas do OSI com responsabilidades semelhantes, transformando a representação de 7 camadas em apenas 4. 
+Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais protocolos da Internet, o protocolo TCP, da camada 4 (Transporte), e o protocolo IP, da camada 3 (Redes). A ideia do modelo TCP/IP é agrupar camadas do OSI com responsabilidades semelhantes, transformando a representação de 7 camadas em apenas 4.
 
 #### Reguladores internacionais
 * __ICANN__ (Internet Corporation for Assigned Names and Numbers): regulamentar a distribuição dde ranges de IP's (endereços) para os continentes / regiões do planeta e responsável também pelo gerenciamento dos servidores de DNS's
@@ -45,3 +47,28 @@ Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais
 * __ABNT__ (Associação Brasileira de Normas Técnicas): entidade responsável pela padronização de normas brasileiras; utilizada para definir as padronizações de cabeamento estruturado no Brasil como, por exemplo, a ABNT NBR 14565
 * __CGI__ (Comitê Gestor da Internet): órgão responsável pelos serviços de Internet no Brasil; responsável pelos servidores de domínio `.br` (focado no tráfego / comunicação na Internet em si)
 * __Registro BR:__ site responsável pela aquisição de domínios `.br`
+
+#### Certificações mais importantes
+* CCNA - Cisco Certified Network Associate
+* CCNP - Cisco Certified Network Professional
+* CompTIA Network +
+
+__Cisco Packet Tracer:__ principal simulador na área de redes
+
+* __PAN (Personal Area Network):__ 
+  * rede que permite a conexão de dispositivos em nível pessoal
+  * alcance de metros, em alguns casos cm
+  * conexão via rádio / wireless
+  * dispositivos: smartwatches, fone bluetooth...
+* __LAN (Local Area Network):__ 
+  * rede de casa / trabalho
+  * alcance maior, a nível de m
+  * conexão via cabo ou wireless
+  * conexão de mais dispositivos (smart tv, celular, notebook, geladeira smart...)
+* __MAN (Metropolitan Area Network):__
+  * rede em nível de cidade, metrópole e/ou Estado: operadores de telecom (TIM, VIVO...), operadoras de TV (sky...)
+  * alcance a nível de km ou +
+  * conexão via cabo ou wireless com repetidores
+* __WAN (Wide Area Network):__
+  * internet
+  * nível global / intercontinental

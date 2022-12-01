@@ -1,20 +1,4 @@
 # MÓDULO: REDES
-
-### Rede
-* troca de informação / conteúdo / de pulsos elétricos (0 e 1)
-* dispositivo lógico (máquinas virtuais...)
-* conexão entre 2 ou mais dispositivos
-* configuração física (por meio de ccabos ou ondas de rádio) e lógica
-* endereço
-  * lógico (decimal): __IP__ → muda a todo momento, toda vez que a máquina é iniciada...
-  * físico (hexadecimal → presença de nºs e letras): __MAC__ → não muda (cravado na placa de rede / NIC / interface)
-  * __máscara de rede__: diz qual parte do endereço corresponde ao endereço da rede e qual parte corresponde ao endereço host
-
-> 1 = positivo (emissão de pulso elétrico)
-> 0 = negativo (ausência de pulso elétrico)
-> Bit: 0 ou 1
-> Byte: conjunto de 8 Bits = ex: 10110110
-
 ### História Internet
 * rede mundial de computadores
 * década de 40: computadores gigantes para cálculos matemáticos através de alavancas e ? perfurados
@@ -62,6 +46,21 @@ Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais
 * CCNP - Cisco Certified Network Professional
 * CompTIA Network +
 
+### Rede
+* troca de informação / conteúdo / de pulsos elétricos (0 e 1)
+* dispositivo lógico (máquinas virtuais...)
+* conexão entre 2 ou mais dispositivos
+* configuração física (por meio de ccabos ou ondas de rádio) e lógica
+* endereço
+  * lógico (decimal): __IP__ → muda a todo momento, toda vez que a máquina é iniciada...
+  * físico (hexadecimal → presença de nºs e letras): __MAC__ → não muda (cravado na placa de rede / NIC / interface)
+  * __máscara de rede__: diz qual parte do endereço corresponde ao endereço da rede e qual parte corresponde ao endereço host
+
+> 1 = positivo (emissão de pulso elétrico)
+> 0 = negativo (ausência de pulso elétrico)
+> Bit: 0 ou 1
+> Byte: conjunto de 8 Bits = ex: 10110110
+
 __Cisco Packet Tracer:__ principal simulador na área de redes
 
 * __PAN (Personal Area Network):__ 
@@ -81,3 +80,24 @@ __Cisco Packet Tracer:__ principal simulador na área de redes
 * __WAN (Wide Area Network):__
   * internet
   * nível global / intercontinental
+
+#### Protocolos
+* __ARP:__ Adress Resolution Protocol: endereço físico (MAC); protocolo de mapeamento
+* __ICMP:__ Internet Control Message Protocol
+* __HTTP:__ protocolo web, para aacessar informações
+
+__TTL:__ Time to Live → não é regra / unidade de mensuração, é conceito
+
+__Switch:__ comutador/redirecionaro de chamadas, é visto como uma central/ponto de segurança/confiança; consegue diferenciar de onde estou saindo e para onde quero chegar; não obstrui a passagem, pode receber várias iinformações ao mesmo tempo
+__Hub:__ repetidor; mesmo após a rede mapeada, ele envia para todos os dispositivos/pontas que estão concetados a ele; precisa que a informação seja enviada, para liberar a passagem, obstrui o meio
+
+#### Arquiteturas
+* __Estrela:__ ideia de centralização (switch), ex: máquinas EC2; centralização das informações em um meio comutado (switch)
+* __Cliente Servidor:__
+* __Barramento:__
+
+#### Conexões
+* 1:1 → __Unicast__
+* 1:N → __Multicast__
+* N:N → __Broadcast__ → ex: protocolo ARP 
+

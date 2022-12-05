@@ -53,7 +53,7 @@ Modelo mais usado atualmente, sendo seu nome em referência a uns dos principais
 * configuração física (por meio de ccabos ou ondas de rádio) e lógica
 * endereço
   * lógico (decimal): __IP__ → muda a todo momento, toda vez que a máquina é iniciada...
-  * físico (hexadecimal → presença de nºs e letras): __MAC__ → não muda (cravado na placa de rede / NIC / interface)
+  * físico (hexadecimal → presença de nºs e letras): __MAC__ (Media Access Control address) → não muda (cravado na placa de rede / NIC (Network Interface Card) / interface)
   * __máscara de rede__: diz qual parte do endereço corresponde ao endereço da rede e qual parte corresponde ao endereço host
 
 > 1 = positivo (emissão de pulso elétrico)
@@ -82,22 +82,24 @@ __Cisco Packet Tracer:__ principal simulador na área de redes
   * nível global / intercontinental
 
 #### Protocolos
-* __ARP:__ Adress Resolution Protocol: endereço físico (MAC); protocolo de mapeamento
-* __ICMP:__ Internet Control Message Protocol
-* __HTTP:__ protocolo web, para aacessar informações
+* __ARP (Adress Resolution Protocol):__ protocolo de mapeamento; manda a informação para o switch; verifica / faz a resolução dos endereços físicos (MAC)
+  * switch dispara a informação para todas as portas conectadas nele; a informação fica por um tempo no switch, ela tem um tempo de vida (TTL); a tabela de mapeamento? é então resetada
+* __ICMP (Internet Control Message Protocol):__ comunicação de um ponto a outro
+* __HTTP:__ protocolo web, para acessar informações
 
-__TTL:__ Time to Live → não é regra / unidade de mensuração, é conceito
+__TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 
-__Switch:__ comutador/redirecionaro de chamadas, é visto como uma central/ponto de segurança/confiança; consegue diferenciar de onde estou saindo e para onde quero chegar; não obstrui a passagem, pode receber várias iinformações ao mesmo tempo
-__Hub:__ repetidor; mesmo após a rede mapeada, ele envia para todos os dispositivos/pontas que estão concetados a ele; precisa que a informação seja enviada, para liberar a passagem, obstrui o meio
+* __Switch:__ comutador/redirecionador de chamadas, é visto como uma central/ponto de segurança/confiança; consegue diferenciar de onde estou saindo e para onde quero chegar; não obstrui a passagem, pode receber várias iinformações ao mesmo tempo; dispositivo que possibilita a coenxão de diversos aparelhos; está na CAMADA 2
+  * _comutação:_ capacidade de sair de um lugar e mandar a informação para um único dispositivo da rede; troca ou encaminhamento de informação
+* __Hub:__ repetidor; mesmo após a rede mapeada, ele envia para todos os dispositivos/pontas que estão concetados a ele; precisa que a informação seja enviada, para liberar a passagem, obstrui o meio; está na CAMADA 1 → pega os pulsos elétricos (0 e 1) e envia para todos os pontos conectados a ele
 
 #### Arquiteturas
-* __Estrela:__ ideia de centralização (switch), ex: máquinas EC2; centralização das informações em um meio comutado (switch)
-* __Cliente Servidor:__
-* __Barramento:__
+* __Estrela:__ todos os membros da rede se conectam através de um centralizador, geralmente o Switch; ideia de centralização; ex: máquinas EC2; centralização das informações em um meio comutado (switch);configuração: host conectados a um ponto central e a comunicação vai acontecer passando por esse ponto; benefício: centralizar a informação, dá até para homologar/filtrar o que está passando ali (colocar um proxy...); ponto negativo: se o ponto central falhar, toda a rede para de conversar (necessário uma certa redundância, balancemaneto de carga... para manter a arquitetura disponível mesmo que uma das peças caia, vários swithcs para caso um falhe, aponte para o outro); não há obstrução de passagem, nem colisão de dados/pacotes/quadros
+* __Cliente Servidor:__ cliente solicita informação para um servidor; servidor pode ser tanto um computador normal ou uma máquina mais potente; a ideia é o host (cliente) solicitar um arquivo para um computador central (servidor) que é responsável por centralizar e armazenar os documentos e ainda enviar o documento solicitado para aquele determinado cliente
+* __Barramento:__ centraliza a informação em um ponto e a repete para todos os dispositivos conectados e ele; um meio que vai permitir que os dispositivos se comuniquem (camada 2); ocorre obstrução de passagem, só permite o envio de outra informação quando a primeira for concluída; dispositivos compartilham o mesmo meio físico para transmissão de dados, quando um faz um envio, o outro precisa aguardar o término para iniciar um novo requisição, senão haverá conflitos de mensagens
 
 #### Conexões
-* 1:1 → __Unicast__
-* 1:N → __Multicast__
-* N:N → __Broadcast__ → ex: protocolo ARP 
+* 1:1 __Unicast__ → ex: protocolo ICMP (quando comunica com apenas 1 dispositivo)
+* 1:N __Multicast__ → ex: protocolo ICMP
+* N:N __Broadcast__ → conceito de fazer comunicação com todo mundo da rede e todos responderem; IP Broadcast por padrão é o último IP disponível da rede; ex: protocolo ARP 
 

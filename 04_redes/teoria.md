@@ -97,9 +97,20 @@ __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 * __Estrela:__ todos os membros da rede se conectam através de um centralizador, geralmente o Switch; ideia de centralização; ex: máquinas EC2; centralização das informações em um meio comutado (switch);configuração: host conectados a um ponto central e a comunicação vai acontecer passando por esse ponto; benefício: centralizar a informação, dá até para homologar/filtrar o que está passando ali (colocar um proxy...); ponto negativo: se o ponto central falhar, toda a rede para de conversar (necessário uma certa redundância, balancemaneto de carga... para manter a arquitetura disponível mesmo que uma das peças caia, vários swithcs para caso um falhe, aponte para o outro); não há obstrução de passagem, nem colisão de dados/pacotes/quadros
 * __Cliente Servidor:__ cliente solicita informação para um servidor; servidor pode ser tanto um computador normal ou uma máquina mais potente; a ideia é o host (cliente) solicitar um arquivo para um computador central (servidor) que é responsável por centralizar e armazenar os documentos e ainda enviar o documento solicitado para aquele determinado cliente
 * __Barramento:__ centraliza a informação em um ponto e a repete para todos os dispositivos conectados e ele; um meio que vai permitir que os dispositivos se comuniquem (camada 2); ocorre obstrução de passagem, só permite o envio de outra informação quando a primeira for concluída; dispositivos compartilham o mesmo meio físico para transmissão de dados, quando um faz um envio, o outro precisa aguardar o término para iniciar um novo requisição, senão haverá conflitos de mensagens
+* __Ponto a Ponto (Peer to Peer):__ uma máquina faz requisição como servidor, mas também está apta a disponibilizar informações como servidor; pode solicitar (receber) como disponibilizar informação; necessário antigamente pela internet reduzida (limite escasso de banda, internet discada) e falta de servidores potentes para centralizar a informação e permitir que muita gente se conectasse, questão da latência também 
+* __SDN (Software Definition Network):__ construir uma rede a nível de software; abstração da arquitetura física; semelhante à arquitetura de Cloud ex: virtualização de uma rede;
+* __Cloud:__ arquitetura global, redundante e altamente disponível; cria uma VPC no provedor de Cloud e já vem tudo embutido, já abstrai a informação da configuração de switchs, roteadores...; infra como software; tudo é via chamada de API
 
 #### Conexões
 * 1:1 __Unicast__ → ex: protocolo ICMP (quando comunica com apenas 1 dispositivo)
 * 1:N __Multicast__ → ex: protocolo ICMP
 * N:N __Broadcast__ → conceito de fazer comunicação com todo mundo da rede e todos responderem; IP Broadcast por padrão é o último IP disponível da rede; ex: protocolo ARP 
 
+> __Diferença interfaces FastEthernet e GigabitEthernet__
+> Capacidade de trafegar bits
+> FastEthernet: limite de 100 Mb
+> GigabitEthernet: limite de 1000 Mb
+
+> __Diferença de Switch e Roteador__
+> Switch trafega quadros em uma rede local, baseado a nível de ARP e endereço MAC
+> Roteador trafega pacotes, atrelado ao endereço IP da Camada 3

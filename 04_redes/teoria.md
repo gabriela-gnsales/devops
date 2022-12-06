@@ -112,5 +112,12 @@ __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 > GigabitEthernet: limite de 1000 Mb
 
 > __Diferença de Switch e Roteador__
-> Switch trafega quadros em uma rede local, baseado a nível de ARP e endereço MAC
-> Roteador trafega pacotes, atrelado ao endereço IP da Camada 3
+> Switch trafega quadros em uma rede local, baseado a nível de ARP e endereço MAC, da camada 2 (enlace) 
+> Roteador trafega pacotes, atrelado ao endereço IP da camada 3 (rede)
+
+> __IPV4__
+> ex: 192.168.10.1
+> 4 octetos divididos por ponto
+> decimal: 0 a 9
+> binários: 0 e 1
+> intervalo de cada octeto: 0 a 255 (256 números no total)

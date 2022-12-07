@@ -105,6 +105,7 @@ __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 * 1:1 __Unicast__ → ex: protocolo ICMP (quando comunica com apenas 1 dispositivo)
 * 1:N __Multicast__ → ex: protocolo ICMP
 * N:N __Broadcast__ → conceito de fazer comunicação com todo mundo da rede e todos responderem; IP Broadcast por padrão é o último IP disponível da rede; ex: protocolo ARP 
+* __Anycast__
 
 > __Diferença interfaces FastEthernet e GigabitEthernet__
 > Capacidade de trafegar bits
@@ -124,12 +125,37 @@ __IPV4__
 * binários: 0 e 1
 * intervalo de cada octeto: 0 a 255 (256 números no total)
 
-__Classes__
-* A: 1 - 127 → 1.0.0.0 a 127.255.255.255 (na prática vai até o 126.255.255.255 porque o 127 trata-se da rede localhost)
-* B: 128 - 191
-* C: 192 - 223
-* D: 224 - 239
-* E: 240 - 255
+__Classes IP:__ primeiro octeto
+* __A:__ 1 a 127 → 2^24 = 16.777.216 possibilidades (milhões)
+* __B:__ 128 a 191 → 2^16 = 65.536 possibilidades (milhares)
+* __C:__ 192 a 223 → 2^8 = 256 possibilidades (centenas)
+* __D:__ 224 a 239 → multicast
+* __E:__ 240 a 255 → teste de novas tecnologias
+>__OBS:__ 255 é o valor máximo obetido utilizando os 8 bits do octeto por causa do 2^8 = 256 números no total (de 0 a 255)
+> __Classe A:__ 1.0.0.0 a 127.255.255.255 (na prática vai até o 126.255.255.255 porque o 127 trata-se da rede localhost)
+> __Classes D e E:__ não têm endereçamentos possíveis, são reservadas / específicas para um determinado fim
+
+##### IPs restritos e privados
+* 10.0.0.0/8 
+* 172.16.0.0/12 
+* 192.168.0.0/16 
+* 127.0.0.0 → todos os IPs iniciando pelo octeto 127 correspondem ao endereço da própria máquina e próprio dispositivo
+* 169.254.0.0 → endereço de IP APIPA, utilizado quando não é encontrado um roteador na rede
+* 0.0.0.0 → IP de inicialização da máquina
+
+##### Máscaras
+* __Classe A:__ 255.0.0.0 → 1º octeto é a rede; os octetos restantes são os endereços de host → R.H.H.H 
+  * __OBS:__ por isso para a classe A há 2^24 possibilidades, que são as combinações possíveis dos 3 ocetos de host (0.0.0) = 256 x 256 x 256 = 16.777.216
+* __Classe B:__ 255.255.0.0 → 1º e 2º octetos são a rede → R.R.H.H
+* __Classe C:__ 255.255.255.0 → 1º, 2º e 3º octetos são a rede → R.R.R.H
+
+__Endereço de Broadcast:__ utilizado na comunicação com todos os dispositivos da rede (analogia: portaria de um condomínio)
+
+Rede | Host | Broadcast
+---- | ---- | ---------
+Condomínio | Casas | Portaria
+192.168.1.0 (1º nº possível) | 192.168.1.1 até 192.168.1.254 | 192.168.1.255 (último nº possível)
+
 
 >__Decimal:__ 10.0.0.0/8 → 8 primeiros números do primeiro octeto correspondem ao endereço de Rede (00001010)
 >__Binário:__ 00001010.00000000.00000000.00000000
@@ -168,3 +194,44 @@ Máscara: 11111111.1111111.1111111.00000000
 Descritivo de como o protocolo deve ...? 
 * RFC 1918 - Address Allocation for Private Internets
 * RFC 5735 - Special Use IPv4 Addresses
+
+__Gateway:__ representa o roteador que está conectando
+
+__OBS:__ 
+* `ping <site>` (Windows e Linux) = comando para testar conectividade através do protocolo ICMP, informa o tempo de resposta (latência)
+* TTL = tempo de vida do pacote na rede
+* `ping 127.0.0.1` ou qualquer outro endereço de IP que inicia com 217 (diz respeito a própria máquina) = testar placa de rede 
+* `tracert <site>` (Windows) `tracerout <site>` (Linux) = traça a rota, mostra todos os locais por onde o sinal passa até chagar em casa 
+* `ipconfig` = mostra todas as placas de rede, adaptadores e os IPs configurados
+
+> __Diferença entre IP de Classe 5 e Máscara__
+> Verificar se o octeto é misto (0 e 1 misturado)
+> Caso apresente apenas números 1 no início é um octeto de máscara
+
+#### Cálculo de sub-redes
+* 1º passo: olhar a máscara e identificar o octeto misto 
+* 2º passo: determinar o salto (variação entre as sub-redes) → fazer subratação de 256 e do número do octeto misto 
+* 3º passo: determinar todos os endereços de rede
+* 4º passo: determinar todos os endereços de broadcast
+* 5º passo: determinar todos os hosts
+
+> __Exemplo:__ IP = 192.168.1.10 (Classe C)
+> * Máscara: 255.255.255.192
+> * Salto: 256 - 192 = 64 IPs (incluindo os endereços de rede e de broadcast)
+> * Endereços de rede: 
+>   * 192.168.1.0
+>   * 192.168.1.64 (soma o salto no último octeto)
+>   * 192.168.1.128
+>   * 192.168.1.192
+>     * 192.168.1.256 (DESCONSIDERAR → SÓ PARA VERIFICAR → no final SEMPRE tem que bater no 256)
+> * Endereços de broadcast:
+>   * 192.168.1.63 (diminui 1 do último octeto do próximo endereço de rede = 64 - 1 = 63)
+>   * 192.168.1.127
+>   * 192.168.1.191
+>   * 192.168.1.255
+> * Hosts
+>   * 192.168.1.1 a 192.168.1.62
+>   * 192.168.1.65 a 192.168.1.126
+>   * 192.168.1.129 a 192.168.1.190
+>   * 192.168.1.193 a 192.168.1.254
+

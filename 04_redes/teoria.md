@@ -115,9 +115,56 @@ __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 > Switch trafega quadros em uma rede local, baseado a nível de ARP e endereço MAC, da camada 2 (enlace) 
 > Roteador trafega pacotes, atrelado ao endereço IP da camada 3 (rede)
 
-> __IPV4__
-> ex: 192.168.10.1
-> 4 octetos divididos por ponto
-> decimal: 0 a 9
-> binários: 0 e 1
-> intervalo de cada octeto: 0 a 255 (256 números no total)
+__IPV4__
+* criado por volta das décadas de 70/80
+* permite +/- 4 bilhões de dispositivos
+* ex: 192.168.10.1
+* 4 octetos divididos por ponto
+* decimal: 0 a 9
+* binários: 0 e 1
+* intervalo de cada octeto: 0 a 255 (256 números no total)
+
+__Classes__
+* A: 1 - 127 → 1.0.0.0 a 127.255.255.255 (na prática vai até o 126.255.255.255 porque o 127 trata-se da rede localhost)
+* B: 128 - 191
+* C: 192 - 223
+* D: 224 - 239
+* E: 240 - 255
+
+>__Decimal:__ 10.0.0.0/8 → 8 primeiros números do primeiro octeto correspondem ao endereço de Rede (00001010)
+>__Binário:__ 00001010.00000000.00000000.00000000
+
+>__Decimal:__ 10.0.0.0/8
+>__Binário:__ 11111111.00000000.00000000.00000000
+
+> __127.x.x.x__ → destinado para o localhost = loopback 
+> rede que aponta/ligada ao próprio computador
+> não é exposta para a internet, é uma rede local
+
+> 2 endereços:
+> * Rede: 10.0.0.0
+> * Host: 10.x.x.x
+
+__Rede:__ 192.168.10.0/24
+__Máscara:__ 255.255.255.0
+
+muito comum: /8 /16 /24
+`/alguma coisa` são os bits fixos...
+
+11000000.10101000.00001010.00000000/00011000
+
+Rede: 11000000.10101000.00001010.00000000
+Máscara: 11111111.1111111.1111111.00000000
+
+> Hosts: 2^n - 2 = 254
+> n = número de bits do octeto de hosts
+> 
+> 2^(32 - bitsmascara) - 2
+> onde a máscara, nesse caso, seria 24
+
+* Endereço da rede
+* Endereço de broadcast
+##### RFC (Request For Comments)
+Descritivo de como o protocolo deve ...? 
+* RFC 1918 - Address Allocation for Private Internets
+* RFC 5735 - Special Use IPv4 Addresses

@@ -125,6 +125,12 @@ __IPV4__
 * binários: 0 e 1
 * intervalo de cada octeto: 0 a 255 (256 números no total)
 
+__Conversão de decimal para binário:__
+1   | 2   | 3   | 4   | 5   | 6   | 7   | 8
+--- | --- | --- | --- | --- | --- | --- | --- 
+2^7 | 2^6 | 2^5 | 2^4 | 2^3 | 2^2 | 2^1 | 2^0 
+128 | 64  | 32  | 16  | 8   | 4   | 2   | 1
+
 __Classes IP:__ primeiro octeto
 * __A:__ 1 a 127 → 2^24 = 16.777.216 possibilidades (milhões)
 * __B:__ 128 a 191 → 2^16 = 65.536 possibilidades (milhares)
@@ -234,4 +240,132 @@ __OBS:__
 >   * 192.168.1.65 a 192.168.1.126
 >   * 192.168.1.129 a 192.168.1.190
 >   * 192.168.1.193 a 192.168.1.254
+
+__CIDR (Classes Inter-Domain Routing):__ informa qual a faixa de IPs pode usar
+
+__Máscara:__ 
+* objetivo: diferenciar o que será rede e o que será host
+* para segurança, para não ficar exposto
+
+***
+
+#### Exercício 1
+
+Rede Empresa: DevaRede Deva
+Deva: 192.168.0.0/26
+Rede classe C e privada (trabalhar com uma LAN local)
+
+Departamentos:
+* RH: 60
+* TI: 60
+* Financeiro: 60
+* Marketing: 60
+
+> __CIDR: /26__
+nºs de 1 = 26
+11111111.11111111.11111111.11000000
+2^7 + 2^6 = 128 + 64 = 192
+
+> __Máscara:__ 255.255.255.192
+
+> __Salto:__
+256 - 192 = 64 → nºs de IPs em cada sub-rede (subnet)
+
+Departamento | Rede | Host | Broadcast
+------------ | ---- | ---- | ---------
+RH | 192.168.0.0 | 192.168.0.1 a 192.168.0.62 | 192.168.0.63
+TI | 192.168.0.64 | 192.168.0.65 a 192.168.0.126 | 192.168.0.127
+Financeiro | 192.168.0.128 | 192.168.0.129 a 192.168.0.190 | 192.168.0.191
+Marketing | 192.168.0.192 | 192.168.0.193 a 192.168.0.254 | 192.168.0.255
+
+***
+
+#### Exercício 2
+
+Rede Empresa: DevaRede Deva
+Deva: 192.168.0.0/27
+Rede classe C e privada (trabalhar com uma LAN local)
+
+Departamentos:
+* RH: 30
+* TI: 30
+* Financeiro: 30
+* Marketing: 30
+
+> __CIDR: /27__
+nºs de 1 = 27
+11111111.11111111.11111111.11100000
+2^7 + 2^6 + 2^5 = 128 + 64 + 32 = 224
+
+> __Máscara:__ 255.255.255.224
+
+> __Salto:__
+256 - 224 = 32 → nºs de IPs em cada sub-rede (subnet)
+
+Departamento | Rede | Host | Broadcast
+------------ | ---- | ---- | ---------
+Marketing | 192.168.0.0 | 192.168.0.1 a 192.168.0.30 | 192.168.0.31
+Financeiro | 192.168.0.32 | 192.168.0.33 a 192.168.0.64 | 192.168.0.63
+TI | 192.168.0.64 | 192.168.0.65 a 192.168.0.94 | 192.168.0.95
+RH | 192.168.0.96 | 192.168.0.97 a 192.168.0.126 | 192.168.0.127
+
+
+***
+
+#### Exercício 3
+
+Rede Empresa: DevaRede Deva
+Deva: 192.168.0.0/24
+Rede classe C e privada (trabalhar com uma LAN local)
+
+Departamentos:
+* RH: 6
+* TI: 20
+* Financeiro: 60
+* Marketing: 120
+
+__VLSM:__ Variable Lenght Subnet Mask
+* 1º ordenar de forma decrescente
+* Marketing: 2^7 = 128
+  * total de hosts: 128
+  * total de hosts úteis: 126 
+* Financeiro: 2^6 = 64
+  * total de hosts: 64
+  * total de hosts úteis: 62
+* TI: 2^5 = 32
+  * total de hosts: 32
+  * total de hosts úteis: 30
+* RH: 2^4 = 8
+  * total de hosts: 8
+  * total de hosts úteis: 6 
+
+> __CIDR: /24__
+nºs de 1 = 24
+11111111.11111111.11111111.00000000
+
+> __Máscara:__ 255.255.255.224
+192.168.0.224: 11111111.11111111.11111111.11100000
+
+> __Salto:__
+Marketing: 256 - 128 = 128
+Financeiro: 128 + 64 = 192
+TI: 192 + 32 = 224
+RH: 224 + 8 = 232
+
+Departamento | Rede | Host | Broadcast
+------------ | ---- | ---- | ---------
+Marketing | 192.168.0.0 | 192.168.0.1 a 192.168.0.126 | 192.168.0.127
+Financeiro | 192.168.0.128 | 192.168.0.129 a 192.168.0.190 | 192.168.0.191
+TI | 192.168.0.192 | 192.168.0.193 a 192.168.0.222 | 192.168.0.223
+RH | 192.168.0.224 | 192.168.0.225 a 192.168.0.230 | 192.168.0.231
+
+***
+
+__OBS:__ é comum / convenção que o primeiro endereço de host disponível seja alocado ao GATEWAY 
+
+
+#### CABOS
+* Diretos: dispositivos diferentes
+* Cruzados: dispositivos iguais (ex: 2 PCs)
+
 

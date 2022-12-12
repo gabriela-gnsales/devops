@@ -86,6 +86,10 @@ __Cisco Packet Tracer:__ principal simulador na área de redes
   * switch dispara a informação para todas as portas conectadas nele; a informação fica por um tempo no switch, ela tem um tempo de vida (TTL); a tabela de mapeamento? é então resetada
 * __ICMP (Internet Control Message Protocol):__ comunicação de um ponto a outro
 * __HTTP:__ protocolo web, para acessar informações
+* __TCP (Transmission Control Protocol):__ protocolo que permite ordenar os pacotes, retentativas e confirmar a entrega dos pacotes; é mais lento que o UDP; usado nromalmente para conexões clientes servidores, para acessar praticamente a maioria dos serviços utilizados hoje
+* __UDP (User Datagram Protocol):__ protocolo utilizado para aplicações realtime e stream (lives, videochamadas...); não ordena pacotes e nem garante a entrega
+
+→ protocolos TCP e UDP atuam na Camada 4, estabelecendo a conexão, abrindo a porta de origem e fixando com a porta de destino
 
 __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 
@@ -305,7 +309,7 @@ nºs de 1 = 27
 Departamento | Rede | Host | Broadcast
 ------------ | ---- | ---- | ---------
 Marketing | 192.168.0.0 | 192.168.0.1 a 192.168.0.30 | 192.168.0.31
-Financeiro | 192.168.0.32 | 192.168.0.33 a 192.168.0.64 | 192.168.0.63
+Financeiro | 192.168.0.32 | 192.168.0.33 a 192.168.0.62 | 192.168.0.63
 TI | 192.168.0.64 | 192.168.0.65 a 192.168.0.94 | 192.168.0.95
 RH | 192.168.0.96 | 192.168.0.97 a 192.168.0.126 | 192.168.0.127
 
@@ -363,9 +367,66 @@ RH | 192.168.0.224 | 192.168.0.225 a 192.168.0.230 | 192.168.0.231
 
 __OBS:__ é comum / convenção que o primeiro endereço de host disponível seja alocado ao GATEWAY 
 
-
+***
 #### CABOS
 * Diretos: dispositivos diferentes
 * Cruzados: dispositivos iguais (ex: 2 PCs)
+* RJ45 Pinout T-568A
+* RJ45 Pinout T-568B
+* padrão UTP: mais antigo, não tem isolamento entre o cabo, ocorre interferências 
+* padrão STP: mais utilizado, possui uma divisão de plástico para isolar mais cada parte do cabo e uma embalagem de alumínio para diminuir o ruído
+* coaxial: mais utilizado para disponibilizar sinais de televisão, mas consegue passar internet também
+* fibra óptica: mais utilizado para internet; diferente do UTP, STP e coaxial, ele não é ligado a um par de cobre, tem pequenos pedaços de vidro dentro, pulso de luz refletido de um lado pro outro até chegar no destino final, transferência na velocidade da luz
+  * fibras monomodo: 80 m
+  * fibras multimodo: 300 m
+* categorias (5, 6, 7...): refere-se a velocidade → quanto maior a categoria, maior a capacidade de passar bits
+
+##### Cabeamento estruturado:
+Visa a estruturação do cabeamento padronizada, para que a rede seja:
+* confiável: confiança de que a rede funcionará sem (muitas) falhas
+* escalável: conseguir aumentar ou diminuir a capacidade da rede conforme a necessidade de utilização
+* resiliente: mesmo sofrendo instabilidade, consegue voltar ao estado normal
+
+__7 estruturas:__
+* entrada do edifício: ponto inicial que conecta a rede externa (WAN) até a rede interna (LAN); ex: até onde a vivo/claro chega com a internet
+* sala de equipamentos: onde concentra os equipamentos mais utilizados (modens, switchs, roteadores, firewalls...)
+* em cada andar há um cabeamento horizontal, um switch específico para conectar cada departamento e uma área de trabalho
+* backbone: cabeamento veritical que conecta os switchs dos andares à sala dos equipamentos (ao switch principal)
+* rack: armário onde estão organizados todos os dispositivos/equipamentos (switchs, roteadores...)
+
+***
+
+#### IPV4
+* 4 octetos
+* sistema decimal
+* há o conceito de subnet porque há mais dispositivos do que IP
+
+#### IPV6
+* sucessor do IPV4 
+* criado na década de 90
+* suporta dispositivos na casa dos undecilhões (nº composto por 36 zeros)
+* sistema hexadecimal (letras e nºs)
+* tamanho de 128 bits
+* dividido em 8 blocos com 16 bits cada
+* não há o conceito de subnet
+* ainda utiliza a conotação de máscara (para diferenciar rede e hosts)
+* status atual: 35% da internet utilizando
+* muito utilizado nas operadores/telecomunicações, roteamento na internet, configuração na placa de rede (semidisponibilizado)
+
+#### NAT - Network Address Translation
+* protocolo utilizado para suprir a escassez dos endereços IPV4
+* ideia de postergar o fim do IPV4
+* permite a conexão dos dispositivos locais com a internet através de um único IP público (gateway)
+* tradução de uma rede privada para uma rede pública
+* 3 tipos:
+  * __Static NAT:__ mapear um IP privado para um IP público
+  * __Dynamic NAT:__ mapear diversos IPs privados para um IP público
+  * __PAT (Port Address Translation):__ mapear diversos IPs privados para um IP público através da utilização de portas (faz a tradução com nível de portas)
+
+__PORTA__
+* camada 4 - transporte
+* na minha máquina / no meu IP tenho uma variação de portas disponíveis de 0 a 65535
+* cada porta corresponde a um serviço
+* a porta tem a função de estabalecer uma conexão entre dispositivos
 
 

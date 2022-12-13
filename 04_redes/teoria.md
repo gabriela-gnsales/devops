@@ -85,11 +85,26 @@ __Cisco Packet Tracer:__ principal simulador na área de redes
 * __ARP (Adress Resolution Protocol):__ protocolo de mapeamento; manda a informação para o switch; verifica / faz a resolução dos endereços físicos (MAC)
   * switch dispara a informação para todas as portas conectadas nele; a informação fica por um tempo no switch, ela tem um tempo de vida (TTL); a tabela de mapeamento? é então resetada
 * __ICMP (Internet Control Message Protocol):__ comunicação de um ponto a outro
-* __HTTP:__ protocolo web, para acessar informações
+* __DHCP (Dynamic Host Configuration Protocol):__ protocolo que configura os dispositivos de forma automática; atua na camada 7 do Modelo OSI; responsável pela alocação de informações de rede (endereço IP, máscara, gateway e DNS) dos novos dispositivos; é bom para centralizar os IPs ...
+* __DNS (Domain Name System):__ protocolo responsável pela resolução de nomes na rede; atua na camada 7 do Modelo OSI
+* __HTTP (Hypertext Transfer Protocol):__ protocolo responsável pela transferência de arquivos entre origem e destino através da internet; atua na camada 7 do Modelo OSI; protocolo web para acessar informações
+* __HTTPS (Hypertext Transfer Protocol Secure):__ protocolo responsável pela transferência de arquivos entre origem e destino através da internet de forma SEGURA;garante a criptografia em trânsito por ter certificado
+  * certificados:
+    * SSL: Secure Socket Layer
+    * TLS: Transport Layer Security → sucessor / atualização do SSL; mais utilizado
+* __IP:__ protocolo responsável pelo endereçamento dos pacotes de rede na camada 3 do Modelo OSI
+  * atualmente existem dois formatos: IPV4 e IPV6
+  * o endereço IP é dividido em 2 partes: endereço de rede e de host; essa divisão ocorre de acordo com a máscara que o endereço da rede seguir
 * __TCP (Transmission Control Protocol):__ protocolo que permite ordenar os pacotes, retentativas e confirmar a entrega dos pacotes; é mais lento que o UDP; usado nromalmente para conexões clientes servidores, para acessar praticamente a maioria dos serviços utilizados hoje
 * __UDP (User Datagram Protocol):__ protocolo utilizado para aplicações realtime e stream (lives, videochamadas...); não ordena pacotes e nem garante a entrega
 
-→ protocolos TCP e UDP atuam na Camada 4, estabelecendo a conexão, abrindo a porta de origem e fixando com a porta de destino
+→ protocolos TCP e UDP atuam na camada 4 do Modelo OSI, estabelecendo a conexão, abrindo a porta de origem e fixando com a porta de destino
+
+__OBS:__ criptografia em repouso: informação guardada, ex: banco de dados
+
+__Latência:__ duração da requisição desde a saída até a resposta do destino
+
+__Cache:__ serviço que armazena as informações mais acessadas em servidores mais próximos do solicitante
 
 __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 
@@ -119,15 +134,6 @@ __TTL (Time to Live):__ não é regra / unidade de mensuração, é conceito
 > __Diferença de Switch e Roteador__
 > Switch trafega quadros em uma rede local, baseado a nível de ARP e endereço MAC, da camada 2 (enlace) 
 > Roteador trafega pacotes, atrelado ao endereço IP da camada 3 (rede)
-
-__IPV4__
-* criado por volta das décadas de 70/80
-* permite +/- 4 bilhões de dispositivos
-* ex: 192.168.10.1
-* 4 octetos divididos por ponto
-* decimal: 0 a 9
-* binários: 0 e 1
-* intervalo de cada octeto: 0 a 255 (256 números no total)
 
 __Conversão de decimal para binário:__
 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8
@@ -208,11 +214,24 @@ Descritivo de como o protocolo deve ...?
 __Gateway:__ representa o roteador que está conectando
 
 __OBS:__ 
-* `ping <site>` (Windows e Linux) = comando para testar conectividade através do protocolo ICMP, informa o tempo de resposta (latência)
-* TTL = tempo de vida do pacote na rede
+* `ping <site>` (Windows e Linux)
+  * comando para testar conectividade através do protocolo ICMP
+  * informa o tempo de resposta (latência)
+  * o ping (Packet Internet Network Groper) é responsável por enviar uma quantidade de pacotes ao endereço especificado para verificar se o endpoint de destino é conhecido na rede
+  * indica o TTL (Time to Live), que é o tempo de vida do pacote na rede e o tempo de resposta do endpoint
+  * o fato de não ter um ping com sucesso não significa que não há conexão com o destino, mas sim que pode existir um firewall ou proxy barrando esse tipo de conexão
 * `ping 127.0.0.1` ou qualquer outro endereço de IP que inicia com 217 (diz respeito a própria máquina) = testar placa de rede 
 * `tracert <site>` (Windows) `tracerout <site>` (Linux) = traça a rota, mostra todos os locais por onde o sinal passa até chagar em casa 
-* `ipconfig` = mostra todas as placas de rede, adaptadores e os IPs configurados
+* `ipconfig`
+  * mostra todas as placas de rede, adaptadores e os IPs configurados
+  * tem como finalidade apresentar as configurações atuais das interfaces de rede
+  * são exibidos endereços IPV6 e IPV4, máscara de sub-rede e gateway padrão
+  * esse comando exibe todas as interfaces de redes do host, desde as destinadas a conexões Ethernet, Wireless ou interfaces virtualizadas
+* `ipconfig /flushdns`
+  * esse parâmetro utilizado com o `ipconfig` indica a ordem de realizar uma limpeza dos endereços de servidores DNS´s salvos em cache no host
+  * esse comando pode ajudar na correção de erros na resolução de nomes DNS's e nos redirecionamentos aos sites
+
+
 
 > __Diferença entre IP de Classe 5 e Máscara__
 > Verificar se o octeto é misto (0 e 1 misturado)
@@ -328,7 +347,7 @@ Departamentos:
 * Financeiro: 60
 * Marketing: 120
 
-__VLSM:__ Variable Lenght Subnet Mask
+__VLSM (Variable Lenght Subnet Mask):__ técnica que permite a divisão de uma rede em quantidades menores; devido a limitação do IPV4, é muito comum as empresas terem um endereço de rede que precisa ser distribuído em redes menores para alocar cada departamento
 * 1º ordenar de forma decrescente
 * Marketing: 2^7 = 128
   * total de hosts: 128
@@ -397,21 +416,29 @@ __7 estruturas:__
 ***
 
 #### IPV4
-* 4 octetos
-* sistema decimal
+* criado por volta das décadas de 70/80
+* permite +/- 4 bilhões de dispositivos
+* formato de 32 bits
+* 4 octetos divididos por ponto
+* sistema decimal: 0 a 9
+* intervalo de cada octeto: 0 a 255 (256 números no total)
 * há o conceito de subnet porque há mais dispositivos do que IP
+* ex: 192.168.0.1
 
 #### IPV6
 * sucessor do IPV4 
 * criado na década de 90
 * suporta dispositivos na casa dos undecilhões (nº composto por 36 zeros)
 * sistema hexadecimal (letras e nºs)
-* tamanho de 128 bits
+* formato de 128 bits
 * dividido em 8 blocos com 16 bits cada
 * não há o conceito de subnet
 * ainda utiliza a conotação de máscara (para diferenciar rede e hosts)
 * status atual: 35% da internet utilizando
 * muito utilizado nas operadores/telecomunicações, roteamento na internet, configuração na placa de rede (semidisponibilizado)
+* ex: 1050:0000:0000:0000:0005:0600:300c:326b
+* os pares que contêm 0 à esquerda podem ser limitados a um único 0
+  * ex: 1050:0:0:0:5:600:300c:326b
 
 #### NAT - Network Address Translation
 * protocolo utilizado para suprir a escassez dos endereços IPV4

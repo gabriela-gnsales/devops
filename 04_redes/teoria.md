@@ -331,15 +331,16 @@ Financeiro | 192.168.0.32 | 192.168.0.33 a 192.168.0.62 | 192.168.0.63
 TI | 192.168.0.64 | 192.168.0.65 a 192.168.0.94 | 192.168.0.95
 RH | 192.168.0.96 | 192.168.0.97 a 192.168.0.126 | 192.168.0.127
 
->__Configuração roteador para virtualizar 2 interfaces__
->
-> `interface GigabitEthernet 0/0.1`
-> `encapsulation dot1Q 10`
-> `ip address 192.168.0.1 255.255.255.224`
->
-> `interface GigabitEthernet 0/0.2`
-> `encapsulation dot1Q 40`
-> `ip address 192.168.0.97 255.255.255.224`
+__Configuração roteador para virtualizar 2 interfaces:__
+```
+interface GigabitEthernet 0/0.1
+encapsulation dot1Q 10
+ip address 192.168.0.1 255.255.255.224
+
+interface GigabitEthernet 0/0.2
+encapsulation dot1Q 40
+ip address 192.168.0.97 255.255.255.224
+```
 
 ***
 

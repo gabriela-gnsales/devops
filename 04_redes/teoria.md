@@ -85,13 +85,14 @@ __Cisco Packet Tracer:__ principal simulador na área de redes
 * __ARP (Adress Resolution Protocol):__ protocolo de mapeamento; manda a informação para o switch; verifica / faz a resolução dos endereços físicos (MAC)
   * switch dispara a informação para todas as portas conectadas nele; a informação fica por um tempo no switch, ela tem um tempo de vida (TTL); a tabela de mapeamento? é então resetada
 * __ICMP (Internet Control Message Protocol):__ comunicação de um ponto a outro
-* __DHCP (Dynamic Host Configuration Protocol):__ protocolo que configura os dispositivos de forma automática; atua na camada 7 do Modelo OSI; responsável pela alocação de informações de rede (endereço IP, máscara, gateway e DNS) dos novos dispositivos; é bom para centralizar os IPs ...
+* __DHCP (Dynamic Host Configuration Protocol):__ protocolo que configura os dispositivos de forma automática; atua na camada 7 do Modelo OSI; responsável pela alocação de informações de rede (endereço IP, máscara, gateway e DNS) dos novos dispositivos; é bom para centralizar responsabilidades, automatizar processos e manter uma certa proteção
 * __DNS (Domain Name System):__ protocolo responsável pela resolução de nomes na rede; atua na camada 7 do Modelo OSI
 * __HTTP (Hypertext Transfer Protocol):__ protocolo responsável pela transferência de arquivos entre origem e destino através da internet; atua na camada 7 do Modelo OSI; protocolo web para acessar informações
-* __HTTPS (Hypertext Transfer Protocol Secure):__ protocolo responsável pela transferência de arquivos entre origem e destino através da internet de forma SEGURA;garante a criptografia em trânsito por ter certificado
-  * certificados:
-    * SSL: Secure Socket Layer
+* __HTTPS (Hypertext Transfer Protocol Secure):__ protocolo responsável pela transferência de arquivos entre origem e destino através da internet de forma SEGURA, por meio de um certificado válido; garante a criptografia em trânsito
+  * certificados - protocolos:
+    * SSL: Secure Socket Layer → mais antigo
     * TLS: Transport Layer Security → sucessor / atualização do SSL; mais utilizado
+  __OBS:__ normalmente, todos so certificados são chamados de SSL, porque o nome "pegou", mesmo sendo na realidade TLS
 * __IP:__ protocolo responsável pelo endereçamento dos pacotes de rede na camada 3 do Modelo OSI
   * atualmente existem dois formatos: IPV4 e IPV6
   * o endereço IP é dividido em 2 partes: endereço de rede e de host; essa divisão ocorre de acordo com a máscara que o endereço da rede seguir
@@ -231,8 +232,6 @@ __OBS:__
   * esse parâmetro utilizado com o `ipconfig` indica a ordem de realizar uma limpeza dos endereços de servidores DNS´s salvos em cache no host
   * esse comando pode ajudar na correção de erros na resolução de nomes DNS's e nos redirecionamentos aos sites
 
-
-
 > __Diferença entre IP de Classe 5 e Máscara__
 > Verificar se o octeto é misto (0 e 1 misturado)
 > Caso apresente apenas números 1 no início é um octeto de máscara
@@ -332,7 +331,8 @@ Financeiro | 192.168.0.32 | 192.168.0.33 a 192.168.0.62 | 192.168.0.63
 TI | 192.168.0.64 | 192.168.0.65 a 192.168.0.94 | 192.168.0.95
 RH | 192.168.0.96 | 192.168.0.97 a 192.168.0.126 | 192.168.0.127
 
-> __Configuração roteador__
+> __Configuração roteador para virtualizar 2 interfaces__
+>
 > interface GigabitEthernet 0/0.1
 > encapsulation dot1Q 10
 > ip address 192.168.0.1 255.255.255.224
@@ -397,7 +397,7 @@ __OBS:__ é comum / convenção que o primeiro endereço de host disponível sej
 ***
 #### CABOS
 * Diretos: dispositivos diferentes
-* Cruzados: dispositivos iguais (ex: 2 PCs)
+* Cruzados: dispositivos iguais (ex: 2 switches); ponta cruzada para não gerar conflitos de pacotes
 * RJ45 Pinout T-568A
 * RJ45 Pinout T-568B
 * padrão UTP: mais antigo, não tem isolamento entre o cabo, ocorre interferências 
@@ -463,5 +463,8 @@ __PORTA__
 * na minha máquina / no meu IP tenho uma variação de portas disponíveis de 0 a 65535
 * cada porta corresponde a um serviço
 * a porta tem a função de estabalecer uma conexão entre dispositivos
+* do switch:
+  * porta access: trafega apenas 1 VLAN; acessar uma informação
+  * porta trunk: trafega todas as VLANs do switch 
 
 

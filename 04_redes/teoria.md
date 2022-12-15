@@ -467,3 +467,86 @@ __PORTA__
 * do switch:
   * porta access: trafega apenas 1 VLAN; acessar uma informação
   * porta trunk: trafega todas as VLANs do switch 
+
+***
+
+### Wireless
+* padrão 802.11n
+* redes sem fio
+* WiFi
+* AP Access Point
+* SSID → nome da rede
+* banda
+  * canal
+  * tem uma função de ser uma RODOVIA
+  * 2,4 Ghz
+    * padrão:
+    * prós:
+    * contras:
+  * 5 Ghz
+    * padrão: 802.11ac
+    * prós:
+    * contras:
+  * 6 Ghz
+    * padrão: 802.1ax
+    * prós: maior taxa de dados, menos propensos a interferências, padrão mais novo
+    * contras:
+* faixas
+  * frequência
+  * podem variar +/- de 20-160 Mhz
+
+
+***
+
+### Segurança de Rede
+
+#### Física
+* isolar meus equipamentos de rede e servidores
+* habilitar modelos de segurança
+  * reconhecimento facial
+  * leitura biométrica
+  * acesso por senha
+* desativar o acesso dos periféricos dos dispositivos
+* trocar as senhas padrões dos dispositivos
+* atualizar o firmeware
+* engenharia social
+
+#### Lógica
+* cofre de senhas
+  * Vault Hashicorp
+  * Zohoo
+  * Bitwarden 
+  * 1password
+  * Keeper
+* SSO Single Sign On
+  * base de dados principal
+  * primeiro autenticar
+  * segundo autorizar
+* certificados
+  * HTTPS
+  * certificados digitais
+  * MFA
+    * email
+    * redes sociais
+    * AWS ...
+* firewall
+  * nível de rede
+  * nível de máquina: antivírus
+* backup
+  * full: backup completo diário
+  * incremental: realizar um 1º backup full e nos próximos dias realizará um backup incremental
+  * realizar frequentemente exercícios de DS
+* atualização
+  * sistemas
+  * serviços ...
+* VPN - Virtual Private Network
+  * conexão criptografada
+  * Site to Client: conexão entre o servidor de VPN da empresa com o seu notebook, através de um software como Cisco VPN
+  * Site to Site: conexão entre o servidor de VPN da empresa matriz com a empresa filial
+
+#### Principais ataques
+* Ransomware → acessar a rede e criptografar todos os dados
+* Dos: ataque de negação de serviço
+* DDoS
+* SQL: Injection → obter dados do banco de produção
+* Main in the Middle

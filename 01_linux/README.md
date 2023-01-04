@@ -495,3 +495,7 @@ SSH -> configurando o CLIENT
 SSHD -> configurando o DAEMON = SERVIDOR
 
 AUTENTICAÇÃO é você mostrar sua credencial e AUTORIZAÇÃO é você verificar se essa credencial está autorizada ou não
+
+> __O que é o LTS que o Ubuntu se refere?__
+Ele indica o _Long Time Support_, que é o tempo de suporte que essa versão do sistema terá atualizações disponíveis. Por padrão, o Ubuntu oferece LTS de 5 anos e a cada 2 anos é lançada uma nova versão do sistema operacional.
+> * `cat /etc/os-release` → saber a versão do Ubuntu WSL 

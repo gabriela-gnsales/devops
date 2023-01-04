@@ -1,4 +1,5 @@
 # MÓDULO: REDES
+
 ### História Internet
 * rede mundial de computadores
 * década de 40: computadores gigantes para cálculos matemáticos através de alavancas e ? perfurados

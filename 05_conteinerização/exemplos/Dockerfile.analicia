@@ -1,0 +1,11 @@
+FROM ubuntu:22.04
+
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY gen_hash.sh .
+
+RUN chmod +x ./gen_hash.sh
+
+CMD /bin/bash gen_hash.sh

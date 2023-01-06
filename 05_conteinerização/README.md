@@ -69,34 +69,61 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
 * `docker run -e VARIÁVEL=valor <imagem>`→ definir variáveis de ambientes na criação do container
     * ex: `docker run -it -e AUTHOR="gabriela" -e DATE="20221222" alpine sh`
 
-***
-
-* `docker pull pyhon:3.11` → para baixar a imagem para o docker local (pull)
-
+##### Inspecionar o container
 * `docker inspect [ID ou nome do container]` 
+
+### Imagens
+
+Imagens são para um container como uma receita é para um bolo. A imagem de um container contém todas as informações necessárias para que esse container possa ser executado, ou seja, ela inclui o passo a passo completo com todas as especificações e características, bem como alguns scripts que devem ser seguidos no momento de se executar o container. Assim o container é um processo executável provisionado partindo de uma imagem pré-estabelecida.
+
+Uma imagem nada mais é do que um conjunto de arquivos "guia", ou seja, é um template para a criação do container. Imagens são obtidas quando, por meio do docker client, uma solicitação do tipo "build docker" é enviada ao docker daemon e executada. Assim, tendo uma imagem é possível executar um container a partir desta. Cada container só pode subir a partir de uma única imagem, por isso é importante entender o funcionamento do processo de criar e customizar imagens para atender diferentes necessidades.
+
+Existem imagens que são publicadas e mantidas atualizadas pela própria empresa, no caso a docker, e por isso são nomeadas **imagens oficiais**. Essas imagens garantem requisitos básicos de segurança e boas práticas e atendem cenários comuns a muitos usuários.
+
+* `docker images`
+* `docker image ls` → visualizar as imagens disponíveis para serem utilizadas
+* `docker build -t <nome dono>/<nome imagem>:<tag - opcional> .` → o ponto significa para criar a imagem no diretório local
+> Este comando enviará ao docker daemon a instrução de criar uma nova imagem a partir do Dockerfile existente no diretório onde a instrução é enviada, essa especificação do local onde o Dockerfile se encontra é dada pelo ponto no final do comando. Essa imagem ficará com a identificação de nome de imagem, tag e nome do dono da imagem conforme especificado no comando.
 
 > Formato do nome da imagem: `owner/image_name:version`
 > `latest`: versão padrão / última versão
 
-##### Criar imagens
-* `docker images`
-* `docker build -t gabrielagns/<nome imagem>:<versão - opcional> .` → o ponto significa para criar a imagem no diretório local
+Uma imagem Docker é construída por meio do uso de um arquivo chamado **Docker File** e é armazenada em um **Docker Hub** ou em um **repositório**.
 
-docker push ehriq/feliz-natal-py
-docker run ehriq/feliz-natal-py
-
-> **Dockerfile:** sequência de comandos para construir uma imagem.
-> * FROM →
-> * RUN → criar a pasta
-> * WORKDIR → criar diretório de trabalho
-> * COPY → copiar arquivos da máquina
-> * ADD → consegue adicionar no container um repositório git
-> * RUN → 
-> * ENV → configurar variáveis de ambiente (não recomendado)
-> * EXPOSE → expor a porta (apenas informa para o usuário mapeá-la corretamente)
-> * CMD →
-> * ENTRYPOINT → 
+##### Dockerfile:
+** Sequência de comandos/instruções para construir uma imagem.**
+* `FROM <image>:<tag>` →  primeira instrução informando a partir de qual imagem base o container deve subir
+> As tags nas imagens são marcações usualmente utilizadas para versionamento das imagens, elas possibilitam que diferentes versões de uma mesma imagem possam coexistir em um repositório e serem utilizadas conforme a necessidade do cliente.
+* `RUN ...` → criar a pasta
+* WORKDIR → criar diretório de trabalho
+* COPY → copiar arquivos da máquina
+* ADD → consegue adicionar no container um repositório git
+* RUN → 
+* ENV → configurar variáveis de ambiente (não recomendado)
+* EXPOSE → expor a porta (apenas informa para o usuário mapeá-la corretamente)
+* CMD →
+* ENTRYPOINT → 
 
 > **Diferença CMD e ENTRYPOINT**
 > O CMD defini como a imagem vai rodar, já o ENTRYPOINT não.
 > O Dockerfile só pode ter um dos dois e eles têm que ser o último comando.
+
+### Docker Registry e Docker Hub
+
+O Docker Registry é um serviço open source usado para armazenar e distribuir imagens Docker. Por meio desse serviço múltiplos usuários podem ter acesso a imagens customizadas feitas por outros usuários. A interface do serviço possibilita um trabalho mais colaborativo e simplifica o processo de transferir imagens de um indivíduo para o outro.
+
+De forma semelhante, o Docker Hub é a ferramenta padrão da própria empresa Docker para esta mesma função. Ou seja, no momento de compartilhar imagens é possível escolher a ferramenta de registro que mais se adequa ao cenário da sua empresa ou projeto. É possível também criar repositórios privados para imagens que precisam ser compartilhadas, mas não publicamente.
+
+A comunicação entre o Docker Client e o Docker Registry é feita por meio de comandos de `pull` e `push`.
+
+* `docker pull <image>:<tag>` → buscar uma determinada imagem em um repositório Docker
+	 * ex: `docker pull pyhon:3.11` → para baixar a imagem para o docker local (pull)
+* `docker push <image>:<tag>` → disponibilizar no repositório as alterações feitas
+
+### Volumes Docker
+
+Um volume Docker é sempre gerenciado pelo Docker host (o Docker Daemon), a única função do usuário é criar ou destruir o volume conforme necessário e, em casos específicos, realizar um mapeamento dentro do container para o volume. 
+
+* `docker volume create [OPTIONS] [VOLUME]` → criar um volume docker
+* `docker volume ls [OPTIONS]` → listar volumes
+* `docker volume inspect [OPTIONS] VOLUME [VOLUME...]` → inspecionar volumes

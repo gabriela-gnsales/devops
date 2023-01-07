@@ -48,8 +48,12 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
 * `docker run -d redis:latest` → executar a última versão do redis em backgroud
 * `docker run -d -p "porta_local:porta_no_container" <imagem>`
     * ex: `docker run -d -p "8080:80" nginx:latest` → executar um container à partir da imagem "nginx:latest" mapeando a porta 8080 local (seu host) para a porta 80 do container (porta de serviço do nginx)
-    * ex: `docker run -d -e POSTGRES_PASSWORD=12345678 -e POSTGRES_USER=ada -e POSTGRES_DB=devas -p 5432:5432 --name pgsql_devas postgres:15`
-    * ex: `docker run -d -p 5432:5432 --env-file env.dev --name pgsql_devas_2 postgres:15`
+    * ex: `docker run -d -e POSTGRES_PASSWORD=12345678 -e POSTGRES_USER=ada -e POSTGRES_DB=devas -p "5432:5432" --name pgsql_devas postgres:15`
+    * ex: `docker run -d --name pgsql_b3 -p "54321:5432" -e POSTGRES_PASSWORD="senhadificil" -e POSTGRES_USER="dbuser" -e POSTGRES_DB="ada_b3" postgres:14.6`
+    * ex: `docker run -d -p "5432:5432" --env-file env.dev --name pgsql_devas_2 postgres:15`
+__OBS:__ recomendado colocar as portas entre aspas
+> Comando para listar as portas: `lsof`
+> A porta local deve ser alterada quando já estiver sendo usada
 
 ##### Mostrar os containers
 * `docker ps -a` → exibir todos os containers existentes (parados os rodando) via CLI (command-line interface)
@@ -83,12 +87,18 @@ Existem imagens que são publicadas e mantidas atualizadas pela própria empresa
 * `docker images`
 * `docker image ls` → visualizar as imagens disponíveis para serem utilizadas
 * `docker build -t <nome dono>/<nome imagem>:<tag - opcional> .` → o ponto significa para criar a imagem no diretório local
+    * ex: `docker build -t simpatica:1 .`
+    * ex: `docker run simpatica`
 > Este comando enviará ao docker daemon a instrução de criar uma nova imagem a partir do Dockerfile existente no diretório onde a instrução é enviada, essa especificação do local onde o Dockerfile se encontra é dada pelo ponto no final do comando. Essa imagem ficará com a identificação de nome de imagem, tag e nome do dono da imagem conforme especificado no comando.
+
+> Usar `docker login` quando ...
 
 > Formato do nome da imagem: `owner/image_name:version`
 > `latest`: versão padrão / última versão
 
 Uma imagem Docker é construída por meio do uso de um arquivo chamado **Docker File** e é armazenada em um **Docker Hub** ou em um **repositório**.
+
+> **alpine:** imagem / distribuição pequena que tem o mínimo necessário para um container rodar
 
 ##### Dockerfile:
 ** Sequência de comandos/instruções para construir uma imagem.**

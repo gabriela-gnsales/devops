@@ -8,6 +8,8 @@ Ferramenta/sistema de versionamento e monitoramento de código
   * onde está apontando uma branch para o respectivo commit → `cd .git/refs`
   * onde os arquivos estão sendo salvos, de forma compactada → pasta `cd .git/objects`
 
+> **Commit** é a forma de salvar um estado ou versão do código.
+
 ### GitHub / GitLab / Bitbucket / AWS CodeCommit ...
 ##### Plataformas de versionamento, de forma distribuída, centralizada e global
 * GitHub é o mais utilizado → centraliza os principais códigos OpenSource
@@ -34,6 +36,9 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 
 ### Principais comandos:
 * `git init` → inicializar o repositório
+* `git init --bare` → indica que o repositório é puro, só contém as alterações dos arquivos, não contém uma cópia física; criar um repositório Git sem uma cópia dos arquivos para ser utilizado como servidor
+> Com o comando `--bare` cria-se um repositório que não terá a working tree, ou seja, não conterá uma cópia dos arquivos. Como o repositório servirá apenas como servidor, para que outros membros da equipe sincronizem seus trabalhos, desta forma é poupado espaço de armazenamento.
+> **OBS:** Caso tenha executado o comando init sem o parâmetro `--bare`, execute na sequência o comando `git config core.bare true`.
 * `git status` → verificar status dos arquivos do repositório
 * `git add <nome(s) do(s) arquivo(s)>` ou `git add . ` (todos os arquivos) ou `git add *` ou `git add -A` → adicionar os arquivos do repositório para serem monitorados/versionados pelo git 
 * `git commit -m 'Mensagem - descrição commit'` → salva as as alterações, isto é, o status e a versão atual; tem um hash que dá para buscar pelos primeiros 4/5 dígitos
@@ -43,14 +48,20 @@ __commit:__ entregável, mostra determinado satus do código, snapshot, confirma
 * `git push <nome repositório remoto> <nome branch>` → `git push origin main` → enviar o código para o repositório remoto (origin)
 * `git pull` → trazer o código do repositório remoto para o local, sincronizar, atualizar o repositório local
 * `git merge <nome da branch com os códigos que serão passados para a branch atual>` → juntar as branchs, necessitando resolver conflitos em alguns casos
+> O git merge gera um novo commit, informando que houve uma mescla entre duas branches.
 > A mesclagem de um branch é utilizada quando queremos incorporar todas as modificações efetuadas naquele branch para o qual estamos trabalhando neste momento - ao contrário do `cherry-pick`, que traz apenas um único commit.
 * `git diff` → para exibir as alterações nos arquivos antes de realizar o comando `git add .`
+* `git diff {hash do commit de merge com lista}..{hash do último commit realizado}`
 * `git diff <branch 1> <branch 2>` → para ver as diferenças entre branches
 * `git stash push` → para salvar essas alterações, guardá-las e removê-las do estado atual do seu projeto, mantendo-o "limpo" novamente
 * `git stash pop` → para restaurar as modificações
 * `git stash list` → para ver a lista de modificações feitas
 * `git stash pop <número da modificação>` → para restaurá-la
 * `git stash apply` → não remove aquela alteração da pilha, permitindo então a rápida mudança entre diversos estados salvos em seguida
+
+> Digitando apenas `git diff`, vemos as alterações em nossos arquivos que não foram adicionadas para commit (com `git add`).
+> É possível comparar as alterações entre duas branches com `git diff <branch1>..<branch2>`.
+> É possível comparar as alterações feitas entre um commit e outro, através do comando `git diff <commit1>..<commit2>`.
 
 __OBS:__
 
@@ -69,6 +80,21 @@ The `-m` option is mutually exclusive with -c, -C, and -F.
 * `git checkout <nome_branch>` / `git switch <nome_branch>` → trocar de branch
 * `git checkout -b <nome_nova_branch>` / `git switch -c <nome_nova_branch>` → criar uma nova branch e trocar para ela aparecer 
 [Diferença entre "git switch" e "git checkout"? - Stack Overflow em Português](https://pt.stackoverflow.com/questions/533866/qual-a-diferença-entre-git-switch-e-git-checkout)
+> O `git checkout` serve para navegar em estados do repositório, seja através de branchs ou desfazendo modificações (`git checkout --<arquivo>`).
+> A descrição do comando `git checkout --help`, em uma tradução livre, é: "Atualizar os arquivos na working tree para ficarem na versão especificada. [...]". Basicamente, é possível deixar o código no estado do último commit de uma branch, de um commit específico, ou mesmo tags.
+
+* para desfazer uma alteração antes de adicioná-la para commit (com `git add`), podemos utilizar o comando `git checkout -- <arquivos>`;
+* para desfazer uma alteração após adicioná-la para commit, antes precisamos executar o `git reset HEAD <arquivos>` e depois podemos desfazê-las com `git checkout -- <arquivos>`;
+* para revertermos as alterações realizadas em um commit, o comando `git revert` pode ser a solução;
+* o comando `git revert` gera um novo commit informando que alterações foram desfeitas;
+* para guardar um trabalho para retomá-lo posteriormente, podemos utilizar o `git stash`;
+* para visualizar quais alterações estão na stash, podemos utilizar o comando `git stash list`;
+* o comando `git stash apply <numero>`, podemos aplicar uma alteração específica da stash;
+* o comando `git stash drop <numero>` remove determinado item da stash;
+* o comando `git stash pop` aplica e remove a última alteração que foi adicionada na stash;
+* o `git checkout` serve para deixar a cópia do código da nossa aplicação no estado que desejarmos:
+  * `git checkout <branch>` deixa o código no estado de uma branch com o nome `<branch>`;
+  * `git checkout <hash>` deixa o código no estado do commit com o hash `<hash>`.
 
 ### Comandos remote
 * `git remote` → mostrar o nome dos repositórios remotos
@@ -90,16 +116,23 @@ The `-m` option is mutually exclusive with -c, -C, and -F.
 * `git commit --amend --no-edit` → para editar um commit sem editar a mensagem
 * `git cherry-pick` → para escolher individualmente commits (de uma branch) para serem incorporados a outro trabalho/branch
 * `git rebase <nome-da-branch-base> <nome-da-base-que-quero-atualizar>` → [Documentação oficial do Git: Rebase](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Rebase)
+> O merge junta os trabalhos e gera um merge commit. 
+> O rebase aplica os commits de outra branch na branch atual.
+> O git rebase não gera um commit de merge, simplificando o log.
   * `git push -f origin` → informar o servidor remoto que houve uma grande modificação, passando a opção `-f` para forçar a reescrita do histórico no `push`
   * `git push -u origin main`
   * `git rm -r --cached <arquivo ou pasta que quer que o git pare de monitorar>` → para excluir do repositório remoto pastas/arquivos que foram incuídos no .gitignore depois
   * `git commit -m 'Removendo arquivos da staging area'`
   * `git branch -M main` → renomear branch para 'main'
 
+> Com o `git checkout` é possível desfazer uma alteração que ainda não foi adicionada ao `index` ou `stage`, ou seja, antes do `git add`. Depois de adicionar com `git add`, para desfazer uma alteração, usa-se o `git reset` tirá-la deste estado. Agora, se o commit já tiver sido realizado, o comando utilizado é o `git revert`.
+
 ### Comandos para visualizar o histórico de commits
 * `git log` → para listar todos os commits que foram realizados
 > Cada bloco apresenta um commit, com seu hash SHA-1, autor (que configuramos globalmente no início deste material), data e a mensagem (por isso a importância de utilizar mensagens explicativas)
-* `git log --pretty=oneline` → para mostrar de um jeito mais clean, simplificado, em uma linha
+* `git log --oneline` / `git log --pretty=oneline` → para mostrar de um jeito mais clean, simplificado, em uma linha
+* `git log -p` → para ver todas as alterações do commit
+* `git log --graph` → para ver as linhas de desenvolvimento (branches)
 * `git log --follow <nome arquivo>` → para restringir os logs apenas para um arquivo
 * `git show <id do commit mostrado no git log = hash` → para visualizar as alterações feitas em um único commit; é suficiente pegar apenas os 4 ou 5 primeiros códigos do ID (hash)
 * `git blame <nome arquivo>` → para saber as últimas modificações feitas em cada linha de um arquivo
@@ -135,6 +168,7 @@ The `-m` option is mutually exclusive with -c, -C, and -F.
 * `git tag -a v0.0.1`
 * `git tag --list`
 * `git push origin v0.0.1`
+> O envio de uma tag para o GitHub gera uma Release, ou seja, conseguimos baixar um arquivo compactado com o nosso código neste ponto.
 
 ### Ignorando arquivos
 `.gitignore` → definir arquivos para o git não monitorar 
@@ -195,3 +229,19 @@ __Framework:__ nível mais macro, contém bibliotecas com partes de códigos que
   * DELETE: exclusão
 
 ###### Postman = client HTTP
+
+***
+
+No ano de 2020 o GitHub anunciou o seguinte:
+
+> “Em 1º de outubro de 2020, qualquer novo repositório que você criar usará o main como o branch padrão, em vez do master”
+
+Isso ocorreu porque “master” é um termo não inclusivo; é uma palavra que é utilizada habitualmente para comunicações em eletrônica, por exemplo: onde se tinha o dispositivo “master” ou “mestre” que envia os comandos para o “slave” ou “escravo” que responde os processos. [Caso queira ler mais sobre](https://en.wikipedia.org/wiki/Master/slave_%28technology%29).
+
+Tendo em vista isso, juntamente com o caso de George Floyd e o movimento **Black Lives Matter**, as empresas de tecnologia foram abandonando esses termos não inclusivos. O GitHub foi uma das primeiras organizações a mostrar apoio a essas mudanças ao anunciar a troca de master para main.
+
+Caso esteja na branch master querendo mudar para main, pode rodar esses comandos no terminal ou Git Bash:
+```
+  git branch -m master main
+  git push -u origin main
+```

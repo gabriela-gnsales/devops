@@ -86,9 +86,9 @@ Existem imagens que são publicadas e mantidas atualizadas pela própria empresa
 
 * `docker images`
 * `docker image ls` → visualizar as imagens disponíveis para serem utilizadas
-* `docker build -t <nome dono>/<nome imagem>:<tag - opcional> .` → o ponto significa para criar a imagem no diretório local
+* `docker build -t <nome dono>/<nome imagem>:<tag - opcional> .` → o **ponto** significa para criar a imagem no diretório local, não pode esquecer dele!
     * ex: `docker build -t simpatica:1 .`
-    * ex: `docker run simpatica`
+    * ex: `docker run simpatica:1`
 > Este comando enviará ao docker daemon a instrução de criar uma nova imagem a partir do Dockerfile existente no diretório onde a instrução é enviada, essa especificação do local onde o Dockerfile se encontra é dada pelo ponto no final do comando. Essa imagem ficará com a identificação de nome de imagem, tag e nome do dono da imagem conforme especificado no comando.
 
 > Usar `docker login` quando ...
@@ -105,14 +105,14 @@ Uma imagem Docker é construída por meio do uso de um arquivo chamado **Docker 
 * `FROM <image>:<tag>` →  primeira instrução informando a partir de qual imagem base o container deve subir
 > As tags nas imagens são marcações usualmente utilizadas para versionamento das imagens, elas possibilitam que diferentes versões de uma mesma imagem possam coexistir em um repositório e serem utilizadas conforme a necessidade do cliente.
 * `RUN ...` → criar a pasta
-* WORKDIR → criar diretório de trabalho
-* COPY → copiar arquivos da máquina
-* ADD → consegue adicionar no container um repositório git
-* RUN → 
-* ENV → configurar variáveis de ambiente (não recomendado)
-* EXPOSE → expor a porta (apenas informa para o usuário mapeá-la corretamente)
-* CMD →
-* ENTRYPOINT → 
+* `WORKDIR` → criar diretório de trabalho
+* `COPY` → copiar arquivos da máquina
+* `ADD` → consegue adicionar no container um repositório git
+* `RUN` → 
+* `ENV` → configurar variáveis de ambiente (não recomendado)
+* `EXPOSE` → expor a porta (apenas informa para o usuário mapeá-la corretamente)
+* `CMD` →
+* `ENTRYPOINT` → 
 
 > **Diferença CMD e ENTRYPOINT**
 > O CMD defini como a imagem vai rodar, já o ENTRYPOINT não.
@@ -137,3 +137,45 @@ Um volume Docker é sempre gerenciado pelo Docker host (o Docker Daemon), a úni
 * `docker volume create [OPTIONS] [VOLUME]` → criar um volume docker
 * `docker volume ls [OPTIONS]` → listar volumes
 * `docker volume inspect [OPTIONS] VOLUME [VOLUME...]` → inspecionar volumes
+
+***
+#### Aplicação Flask
+* criar uma pasta e abrir no terminal seu caminho
+* `python -m venv venv`
+* `.\venv\Scripts\Activate.ps1`
+* `pip install flask`
+* `pip freeze > requirements.txt` → para gerar o arquivo de requerimentos
+* `$env:FLASK_APP`
+* `flask --app app run`
+* criar arquivo python (app.py):
+    ```
+        from flask import Flask
+
+        app = Flask(__name__)
+
+        @app.route('/')
+        def index():
+            return 'Olá, senhoras!'
+    ```
+* criar arquivo Dockerfile:
+    ```
+        FROM python:3.10-alpine
+
+        RUN mkdir -p /app 
+
+        WORKDIR /app
+
+        COPY requirements.txt .
+
+        RUN pip install -r requirements.txt
+
+        COPY app.py .
+
+        EXPOSE 5000
+
+        CMD flask --app app run --host 0.0.0.0
+    ```
+* `docker build -t simflasktica:1 .`
+* `docker run -d -p "5000:5000" simflasktica:1`
+
+***

@@ -134,9 +134,48 @@ A comunicação entre o Docker Client e o Docker Registry é feita por meio de c
 
 Um volume Docker é sempre gerenciado pelo Docker host (o Docker Daemon), a única função do usuário é criar ou destruir o volume conforme necessário e, em casos específicos, realizar um mapeamento dentro do container para o volume. 
 
+> Armazenamento de dados do container:
+> * manter estado de "servidor"
+
+> Compartilhamento de dados:
+> * testes de aplicação
+> * ambiente local de dev
+
+**Tipos de volume:**
+* gerenciado pelo docker
+    * `docker volume create`
+    * `docker volume ls`
+       * `docker volume rm`
+    * ex: `docker run -it --rm -v <identificador volume>`
+* volume local, diretório
+    * `docker run -d -v psql_ada:/var/lib/postgresql/data -e POSTGRES_USER=devas -e POSTGRES_DB=devas -e POSTGRES_PASSWORD=senhadificil --name psql_devas_v15 postgres:15-alpine`
+
 * `docker volume create [OPTIONS] [VOLUME]` → criar um volume docker
 * `docker volume ls [OPTIONS]` → listar volumes
 * `docker volume inspect [OPTIONS] VOLUME [VOLUME...]` → inspecionar volumes
+
+> 1 volume só pode estra em 1 container por vez
+
+<!-- 
+1º método: usando o COPY no Dockerfile (imagem)
+* vantagem: 
+
+2ª método: ter os dados disponíveis em tempo real dentro do container usando volumes ou ponto de montagem
+* vantagem:  
+-->
+
+### Redes Docker
+* `docker network create <nome>`
+* `docker network inspect <nome>`
+
+ex: 
+```
+    docker network create devas_b3
+    docker run -d -v psql_ada:/var/lib/postgresql/data --network devas_b3 -e POSTGRES_USER=devas -e POSTGRES_DB=devas -e POSTGRES_PASSWORD=senhadificil -p 5432:5432 --name psql_devas_v15 -P postgres:15-alpine
+    docker run -it --name psql_client --network devas_b3 postgres:15-alpine sh
+
+```
+
 
 ***
 #### Aplicação Flask

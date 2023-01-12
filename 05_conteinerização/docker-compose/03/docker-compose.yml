@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+
+  app: 
+    platform: linux/amd64
+    build: .
+    volumes: 
+      - ./src:/flask-app
+    command: cd /flask-app && flask --app gritando.py run --host=0.0.0.0
+    ports:
+      - 8000:5000

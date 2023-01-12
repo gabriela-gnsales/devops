@@ -175,7 +175,9 @@ ex:
     docker run -it --name psql_client --network devas_b3 postgres:15-alpine sh
 
 ```
-
+### Docker Compose
+* `docker compose up`
+* `docker compose down`
 
 ***
 #### Aplicação Flask
@@ -218,3 +220,40 @@ ex:
 * `docker run -d -p "5000:5000" simflasktica:1`
 
 ***
+
+### Avaliação de Docker - Parte 01
+
+* O que é uma imagem?
+> Uma base para a criação de um container
+* O que acontece se eu rodo o comando docker run sem especificar o modo de execução (-it ou -d)?
+> O comando é executado dentro do container e o container é automaticamente parado.
+* O que acontece quando eu crio vários containers na mesma rede, criada usando o comando "docker network"? 
+> 
+* Qual comando usamos para criar e executar um container? 
+> docker run
+* Qual comando eu uso para obter uma imagem docker para uso posterior?
+> docker pull
+* Quais são os arquivos obrigatórios que eu preciso para criar uma imagem? 
+> Dockerfile
+* Falando em criar imagem, qual a diferença entre os nomes de imagem: postgres:15 e usuaria/postgres:15
+> A primeira é uma imagem padrão (está no docker hub) e a outra é uma imagem personalizada criada pela usuária e publicada no docker hub dela
+* Se eu quiser criar uma imagem com o nome maria/aplicacao:1, qual comando devo rodar?
+> docker build -t maria/aplicacao:1 .
+* Quais os tipos de volumes que podemos usar em nossos containers?
+> Gerenciados pelo docker (criado com docker volume create)
+> Diretórios locais (usando o parâmetro --mount do docker run)
+* O que o docker não é:
+> Máquina virtual
+> Processo isolado com contexto compartilhado
+> Uma baleia
+> Uma instalação de sistema operacional
+
+***
+
+**Criar imagem e container exercício 1**
+* `docker build -t exercicio-1:1 .`
+* `docker run -it --name exercicio-1 exercicio-1:1`
+
+**Criar imagem e container exercício 2**
+* `docker build -t exercicio-2:1 .`
+* `docker run -d -p "8081:8081" --name exercicio-2 exercicio-2:1`

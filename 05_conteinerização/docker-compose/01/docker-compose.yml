@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  db: 
+    platform: linux/amd64
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=senhacomposta
+      - POSTGRES_USER=ada
+      - POSTGRES_DB=ada
+    ports:
+      - 5432:5432
+
+# interface de administração do postgres
+  adminer:
+    platform: linux/amd64
+    image: adminer
+    ports:
+      - 8080:8080

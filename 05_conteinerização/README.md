@@ -59,9 +59,16 @@ __OBS:__ recomendado colocar as portas entre aspas
 * `docker ps -a` → exibir todos os containers existentes (parados os rodando) via CLI (command-line interface)
 * `docker ps` → exibir somente os containers ativos via CLI
 
+##### Criar o container
+* `docker create <imagem>`
+
+##### Iniciar o container
+* `docker start <identificação>`
+
+> O `docker run <imagem>` faz, internamente, o `docker create` e `docker start`
+
 ##### Parar o container
-* `docker kill <identificação>`
-* `docker stop <identificação>`
+* `docker kill <identificação>` ou `docker stop <identificação>`
 
 ##### Excluir o container
 * `docker rm <identificação>`
@@ -133,40 +140,65 @@ A comunicação entre o Docker Client e o Docker Registry é feita por meio de c
 ### Volumes Docker
 
 Um volume Docker é sempre gerenciado pelo Docker host (o Docker Daemon), a única função do usuário é criar ou destruir o volume conforme necessário e, em casos específicos, realizar um mapeamento dentro do container para o volume. 
+Vanatagem → ter os dados disponíveis em tempo real dentro do container.
 
-> Armazenamento de dados do container:
-> * manter estado de "servidor"
+> Armazenamento de dados → do container para o computador
+> * manter estado de "servidor" (de banco de dados...)
 
-> Compartilhamento de dados:
+> Compartilhamento de dados → diretório local (no computador) que será compartilhado com o container
 > * testes de aplicação
 > * ambiente local de dev
 
 **Tipos de volume:**
 * gerenciado pelo docker
-    * `docker volume create`
+    * `docker volume create` ou `docker volume create <nome volume>`
     * `docker volume ls`
-       * `docker volume rm`
-    * ex: `docker run -it --rm -v <identificador volume>`
+    * `docker volume rm`
 * volume local, diretório
-    * `docker run -d -v psql_ada:/var/lib/postgresql/data -e POSTGRES_USER=devas -e POSTGRES_DB=devas -e POSTGRES_PASSWORD=senhadificil --name psql_devas_v15 postgres:15-alpine`
+    * `docker run --mount ...`
+    * `docker run -v ...`
+
+* ex: `docker run -it --rm -v <nome ou identificador volume>:/app alpine:latest sh`
+    * local:remoto
+* ex: `docker run -d -v psql_ada:/var/lib/postgresql/data -e POSTGRES_USER=devas -e POSTGRES_DB=devas -e POSTGRES_PASSWORD=senhadificil --name psql_devas_v15 -p "5432:5432" postgres:15-alpine`
+* ex: 
+    * `docker volume create volume_mount`
+    * `docker run -it -v volume_mount:/app" --rm alpine:latest sh`
+* ex: 
+    * `mkdir arquivos_container`
+    * `cd arquivos_container`
+    * `docker run -it --mount "type=bind,source=${pwd},destination=/app" --rm ubuntu:latest bash`
+        * `${pwd}` → substitui para o caminho completo do diretório atual
+* ex: `docker run -it --mount "type=bind,source=${pwd},destination=/app" --rm python:3.11 bash -c "cd /app; programa_python.py"`
 
 * `docker volume create [OPTIONS] [VOLUME]` → criar um volume docker
 * `docker volume ls [OPTIONS]` → listar volumes
 * `docker volume inspect [OPTIONS] VOLUME [VOLUME...]` → inspecionar volumes
 
-> 1 volume só pode estra em 1 container por vez
-
-<!-- 
-1º método: usando o COPY no Dockerfile (imagem)
-* vantagem: 
-
-2ª método: ter os dados disponíveis em tempo real dentro do container usando volumes ou ponto de montagem
-* vantagem:  
--->
+> 1 volume só pode estar em 1 container por vez
 
 ### Redes Docker
-* `docker network create <nome>`
-* `docker network inspect <nome>`
+* `docker network create <nome rede>` → cria uma subrede
+* `docker network inspect <nome rede>`
+* `docker network ls`
+
+* ex: 
+    * `docker network create devas_b3`
+    * `docker run -d --name sleep_infinito --network devas_b3 alpine:latest sh -c "sleep 100000000;"`
+    * `docker inspect sleep_infito`
+        * verifica-se o IP (IPAddress) = 1º disponível na rede
+* ex:
+    * `docker run -d -e POSTGRES_USER=devas -e POSTGRES_DB=devas -e POSTGRES_PASSWORD=senhadificil --name psql_devas_v15 --network devas_b3 -p "5432:5432" -P postgres:15-alpine` → rodar como servidor
+        * -P = 
+    * `docker run -it --name psql_client --network devas_b3 postgres:15-alpine sh` → rodar como cliente
+        * `psql -hpsql_devas_v15 -W -Udevas devas`
+
+> É possível que um container acesse / "chegue" em outro (da mesma rede) pelo seu nome ou seu IP.
+
+#### 3 redes:
+* **bridge:** rede básica / padrão / cega (não é possível vê-la); se não especificar a rede, é nessa que o container irá "subir"
+* **host:** faz o computador local conversar com os containers
+* **none:** não eficiente; rodar de forma isolada, sem concetar com o computador local; usada raramente
 
 ex: 
 ```
@@ -180,6 +212,10 @@ ex:
 * `docker compose down`
 
 ***
+> **Microsserviços:** aplicações menores e mais espcializadas
+> **Monolitos:** aplicações maiores e mais generalistas
+***
+
 #### Aplicação Flask
 * criar uma pasta e abrir no terminal seu caminho
 * `python -m venv venv`
@@ -224,29 +260,29 @@ ex:
 ### Avaliação de Docker - Parte 01
 
 * O que é uma imagem?
-> Uma base para a criação de um container
+> Uma base para a criação de um container.
 * O que acontece se eu rodo o comando docker run sem especificar o modo de execução (-it ou -d)?
 > O comando é executado dentro do container e o container é automaticamente parado.
 * O que acontece quando eu crio vários containers na mesma rede, criada usando o comando "docker network"? 
-> 
+> Os containers conseguem acessar uns aos outros pelo nome do container.
 * Qual comando usamos para criar e executar um container? 
-> docker run
+> `docker run`
 * Qual comando eu uso para obter uma imagem docker para uso posterior?
-> docker pull
+> `docker pull`
 * Quais são os arquivos obrigatórios que eu preciso para criar uma imagem? 
-> Dockerfile
+> Dockerfile.
 * Falando em criar imagem, qual a diferença entre os nomes de imagem: postgres:15 e usuaria/postgres:15
-> A primeira é uma imagem padrão (está no docker hub) e a outra é uma imagem personalizada criada pela usuária e publicada no docker hub dela
+> A primeira é uma imagem padrão (está no docker hub) e a outra é uma imagem personalizada criada pela usuária e publicada no docker hub dela.
 * Se eu quiser criar uma imagem com o nome maria/aplicacao:1, qual comando devo rodar?
-> docker build -t maria/aplicacao:1 .
+> `docker build -t maria/aplicacao:1 .`
 * Quais os tipos de volumes que podemos usar em nossos containers?
-> Gerenciados pelo docker (criado com docker volume create)
-> Diretórios locais (usando o parâmetro --mount do docker run)
+> Gerenciados pelo docker (criado com docker volume create).
+> Diretórios locais (usando o parâmetro --mount do docker run).
 * O que o docker não é:
-> Máquina virtual
-> Processo isolado com contexto compartilhado
-> Uma baleia
-> Uma instalação de sistema operacional
+> Máquina virtual.
+> Processo isolado com contexto compartilhado.
+> Uma baleia.
+> Uma instalação de sistema operacional.
 
 ***
 

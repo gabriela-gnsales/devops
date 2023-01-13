@@ -7,6 +7,6 @@ services:
     build: .
     volumes: 
       - ./src:/flask-app
-    command: cd /flask-app && flask --app gritando.py run --host=0.0.0.0
+    command: bash -c "cd /flask-app && flask --app gritando --debug run --host=0.0.0.0"
     ports:
       - 8000:5000

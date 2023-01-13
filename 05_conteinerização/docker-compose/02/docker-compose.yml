@@ -4,6 +4,6 @@ services:
 
   app: 
     platform: linux/amd64
-    build: .
+    build: . # mesma coisa que o comando "docker build -t nomeimg:tag ." 
     ports:
       - 8081:8081

@@ -2,8 +2,8 @@ version: '3.1'
 
 services:
 
-  db: 
-    platform: linux/amd64
+  db: # pode colocar qualquer nome do serviço, ex: pgsqllocal
+    platform: linux/amd64 # necessário para máquinas com SO macOS
     image: postgres:15
     environment:
       - POSTGRES_PASSWORD=senhacomposta
@@ -12,7 +12,8 @@ services:
     ports:
       - 5432:5432
 
-# interface de administração do postgres
+# 2º serviço
+# interface que gerencia BDs, para administração do postgres, que roda via browser
   adminer:
     platform: linux/amd64
     image: adminer

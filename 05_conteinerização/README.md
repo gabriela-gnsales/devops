@@ -210,10 +210,14 @@ ex:
 ### Docker Compose
 * `docker compose up`
 * `docker compose down`
+* `docker compose stop`
+* `docker compose start`
 
 ***
+
 > **Microsserviços:** aplicações menores e mais espcializadas
 > **Monolitos:** aplicações maiores e mais generalistas
+
 ***
 
 #### Aplicação Flask
@@ -293,3 +297,24 @@ ex:
 **Criar imagem e container exercício 2**
 * `docker build -t exercicio-2:1 .`
 * `docker run -d -p "8081:8081" --name exercicio-2 exercicio-2:1`
+
+***
+
+**AULA 13/01**
+
+* `docker build -t nomes_redis:1 -f build/Dockerfile-redis .`
+    * f = file
+* `cd src`
+* `pip freeze > requirements.txt`
+* `docker build -t nomes_app:1 -f build/Dockerfile-app .`
+* `docker network create nomes_network`
+* `docker run -d --name servidor_redis --network nomes_network nomes_redis:1`
+* `docker run -d --name servidor_app -e REDIS_HOST=servidor_redis -e REDIS_CHAVE_NOMES=nomes --network nomes_network -p "8000:5000" nomes_app:1`
+    * foi possível colocar `REDIS_HOST=nomes_redis` porque estão na mesma rede
+
+***
+
+`docker rmi <container>:1`
+`docker system prune`
+
+dangling

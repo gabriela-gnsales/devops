@@ -1,0 +1,7 @@
+1. criar container para o redis 
+2. criar container para aplicação
+    2.1 python
+    2.2 bibliotecas instaladas
+    2.3 código fonte compilado
+3. criar docker compose com tudo
+4. rodar e ver funcionando

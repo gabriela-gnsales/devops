@@ -83,6 +83,13 @@ __OBS:__ recomendado colocar as portas entre aspas
 ##### Inspecionar o container
 * `docker inspect [ID ou nome do container]` 
 
+##### Comandos de limpeza
+* `docker rm <container>` → remove containers parados; não dá para apagar containers que estão rodando
+* `docker rmi <imagem>` → remove/apaga imagens
+* `docker system prune` → remove todos os recursos que o docker criou e não estão sendo usados (dangling)
+    * `docker container prune`
+    * `docker image prune`
+
 ### Imagens
 
 Imagens são para um container como uma receita é para um bolo. A imagem de um container contém todas as informações necessárias para que esse container possa ser executado, ou seja, ela inclui o passo a passo completo com todas as especificações e características, bem como alguns scripts que devem ser seguidos no momento de se executar o container. Assim o container é um processo executável provisionado partindo de uma imagem pré-estabelecida.
@@ -208,10 +215,10 @@ ex:
 
 ```
 ### Docker Compose
-* `docker compose up`
-* `docker compose down`
-* `docker compose stop`
-* `docker compose start`
+* `docker compose up` → cria e inicia o ambiente
+* `docker compose down` → destrói o ambiente
+* `docker compose stop` → para a execução do ambiente
+* `docker compose start` → continua a execução do ambiente
 
 ***
 
@@ -289,32 +296,3 @@ ex:
 > Uma instalação de sistema operacional.
 
 ***
-
-**Criar imagem e container exercício 1**
-* `docker build -t exercicio-1:1 .`
-* `docker run -it --name exercicio-1 exercicio-1:1`
-
-**Criar imagem e container exercício 2**
-* `docker build -t exercicio-2:1 .`
-* `docker run -d -p "8081:8081" --name exercicio-2 exercicio-2:1`
-
-***
-
-**AULA 13/01**
-
-* `docker build -t nomes_redis:1 -f build/Dockerfile-redis .`
-    * f = file
-* `cd src`
-* `pip freeze > requirements.txt`
-* `docker build -t nomes_app:1 -f build/Dockerfile-app .`
-* `docker network create nomes_network`
-* `docker run -d --name servidor_redis --network nomes_network nomes_redis:1`
-* `docker run -d --name servidor_app -e REDIS_HOST=servidor_redis -e REDIS_CHAVE_NOMES=nomes --network nomes_network -p "8000:5000" nomes_app:1`
-    * foi possível colocar `REDIS_HOST=nomes_redis` porque estão na mesma rede
-
-***
-
-`docker rmi <container>:1`
-`docker system prune`
-
-dangling

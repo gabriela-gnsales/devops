@@ -1,23 +1,23 @@
 version: '3.8'
 
 services:
-  servidor_redis_compose:
+  servidor_redis_compose: 
     platform: linux/amd64
     image: redis:latest
     networks:
       - nomes_network_compose
-  servidor_app_compose:
+  servidor_aplicacao_compose: 
     platform: linux/amd64
-    build:
+    build: 
       dockerfile: build/Dockerfile-app
     ports:
       - "8000:5000"
-    env_file:
+    env_file: 
       - ./env.dev
     networks:
-      - nomes_network_compose
+      - nomes_network_compose    
     volumes:
-      - ./src/:/app
+      - ./src:/app-compose-4
 
 networks:
   nomes_network_compose:

@@ -19,8 +19,7 @@ def get_from_redis():
 def set_on_redis(nome: str):
     all_items = redis_client.smembers(redis_chaves_nomes)
     if nome in all_items:
-        return "Nome já existe!"
+        return "Nome já existe!!!"
     else:
         redis_client.sadd(redis_chaves_nomes, nome)
         return "Nome adicionado :)"
-

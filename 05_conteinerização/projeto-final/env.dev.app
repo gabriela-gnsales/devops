@@ -1,0 +1,4 @@
+PSQL_DBNAME=ada
+PSQL_PASSWORD=adapass
+PSQL_USER=ada
+PSQL_HOST=psql_projeto_final

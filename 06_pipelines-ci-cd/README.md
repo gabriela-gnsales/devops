@@ -127,7 +127,7 @@ O tipo de Jobs mais apropriado depende da necessidade e das particularidades de 
 * `docker inspect <nome ou id do container jenkins>` → consultar o endereço IP do jenkins
     * `docker inspect jenkins`
 * `docker run -d --init jenkins/inbound-agent -url http://endereçodojenkins:8080 <hash senha> <nome nó>`
-    * `docker run -d --init jenkins/inbound-agent -url http://172.17.0.2:8080 ccdd81a07d22a5d3dbf19ccc89ad0843ec9ab5f448feeba1cd37d0d5cd95878e nodejenkins`
+    * `docker run -d --init jenkins/inbound-agent -url http://172.17.0.2:8080 <hash senha> nodejenkins`
 
 **7.** Desafio
 * Descobrir como deixar a saída da mensagem de erro/sucesso (output) do Jenkins colorida
@@ -175,3 +175,9 @@ O tipo de Jobs mais apropriado depende da necessidade e das particularidades de 
         echo "\033[1;43m Yellow \033[0m"
         set -x
     ```
+***
+
+$ docker volume create jenkins-data -> gerar persistência
+
+    $ docker container run --name jenkins –-restart always --detach --privileged --volume jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+docker container run --name jenkins --restart always --detach --privileged --volume jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts

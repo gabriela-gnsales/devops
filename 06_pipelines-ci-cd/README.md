@@ -1,25 +1,23 @@
 # MÓDULO: PIPELINES DE CI E CD
 
-#### Código
+### Código
 Todo código desenvolvido precisa ser armazenado, rastreável, disponibilizado de forma que diversas pessoas possam contribuir para que o ciclo de vida seja o mais longo possível e a manutenção possa acontecer de forma facilitada.
 
-#### Organização de repositórios
+### Organização de repositórios
 Controladores de versão com GIT, SVN são úteis  nesse processo, onde também podemos usar ferramentas na nuvem para armazenar os códigos desenvolvidos de forma visual e integrada com os protocolos mais famosos.
 
-#### Termos importantes
-**Build:** Construir artefatos com suas dependências, a partir de código desenvolvido.
-**Steps:** Divisão de processos por tipo - exemplo: Checkout.
-**Jobs:** Tarefas que podem ser executadas para complementar o processo de construção, entre outros.
-**Environments:** Divisão de ambientes por contexto, como produção, desenvolvimento.
-**Test:** Processo de validação e checagem de saúde do código.
-**Deploy:** Processo de implantação do código após a parte de integração.
+### Termos importantes
+* **Build:** Construir artefatos com suas dependências, a partir de código desenvolvido.
+* **Steps:** Divisão de processos por tipo - exemplo: Checkout.
+* **Jobs:** Tarefas que podem ser executadas para complementar o processo de construção, entre outros.
+* **Environments:** Divisão de ambientes por contexto, como produção, desenvolvimento.
+* **Test:** Processo de validação e checagem de saúde do código.
+* **Deploy:** Processo de implantação do código após a parte de integração.
 
-#### Pipelines
+### Pipelines
 Pipelines são como esteiras de código, tal qual uma linha de montagem com diversos steps, processos de checagem para garantir a qualidade do nosso produto: **o Código Produtivo**.
 Esteiras com diversos passos que geram artefatos.
-
 *Pipelines* de **Continuous Integration** e **Continuous Delivery**, ou *pipelines* de **Integração e *Entrega Contínua** consiste uma esteira de passos, etapas em que o código passará até chegar a sua versão final em ambiente de produção.
-
 A prática da execução de pipelines e automações, são um dos principais pilares da cultura DevOps e da abordagem SRE. O principal objetivo dessas etapas é acelerar o processo de entrega de software, ou seja, quanto mais rápida uma nova versão fica disponível, mais veloz os usuários desse software poderão usufruir dos novos recursos.
 
 **Tópicos da Pipeline:**
@@ -29,29 +27,29 @@ A prática da execução de pipelines e automações, são um dos principais pil
 * **Implantação:** o código é implantado no ambiente de produção;
 * **Validação e conformidade:** é possível usar ferramentas de verificação da segurança de imagens, como o Clair, para ter certeza da qualidade das imagens ao compará-las com vulnerabilidades (CVEs) conhecidas.
 
-#### Ferramentas de integração contínua
+### Ferramentas de integração contínua
 Jenkins, GitLab CI, GitHub Actions, Argocd, CircleCI...
 
-#### Integração contínua
+### Integração contínua
 Uma forma de gerar código produtivo de forma automatizada.
 Trata-se de um sistema integrado e contínuo, ou seja, algo que precisa ser configurado uma única vez, e logo em seguida pode ser usado contínuamente fazendo as etapas manuais de forma total ou parcialmente automatizada.
 
-#### Build automatizado
+### Build automatizado
 Podemos construir artefatos sem precisarmos de um time especializado para isso através de ferramentas.
 Cada artefato possui uma identificação que facilita o desenvolvimento e controle de versões a cada incremento de software, podemos voltar ou avançar versões conforme necessário.
 Uma dos últimos estágios do desenvolvimento de software é o build. Em linhas gerais, o build é processo de empacotamento da aplicação, deixando-a pronta para o deploy nos ambientes, ou a deixando pronta para instalação e utilização por outros usuários.
 Em outras palavras, build é a construção e definição dos mecanismos e processos de instalação. Ao contruir um build, podemos ter como resultados executáveis, bibliotecas, arquivos ou pacotes, como por exemplo: exe, msi, dll, lib, deb, rar, jar, war, entre outros.
 Partindo da premissa que todo processo manual pode ser automatizado, tornar o processo de build automático pode gerar uma boa economia de tempo, além de manter um padrão, reduzindo erros.
 
-#### Deploy
+### Deploy
 Processo/ato de levar o resultado do build de um local isolado para um ambiente em produção.
 Deploy é um dos termos amplamente utilizados por desenvoldores de software e outros profissionais de tecnologia. O conceito diz respeito a prática de implantação, quando tornamos uma funcionalidade ou uma nova versão do sistema disponível para a utilização dos usuários.
 Toda site, sistema, aplicativo, atualizações lançadas que estão atualmente funcionando, passaram de alguma forma pelo processo de deploy, seja ele automático ou manual. Quando pegamos, por exemplo, o código que estava localmente na máquina do desenvolvedor e jogamos para um servidor Web, estamos fazendo o deploy, ou a implantação de uma aplicação.
 
-#### Rollback
+### Rollback
 Processo que consiste em voltar para versões anteriores de forma a manter a saúde do seu ecossistema de aplicações e serviços.
 
-#### Entrega contínua
+### Entrega contínua
 Quando escolhemos se um artefato pronto vai ou não para produção.
 Processo de implantação dó código após ter passado por uma esteira de testes, validações e outros processos que criam versões prontas para estarem disponíveis em ambientes produtivos. Isso facilita que possamos lançar novas funções e melhorar a experiência do usuário de forma controlada.
 
@@ -65,31 +63,31 @@ O Jenkins pode ser configurado para monitorar qualquer alteração de código em
 Por questões de segurança do próprio Jenkins, um `hash` é gerado em cada nova instalação.
 Jenkins se tornou popular por ter sido uma das primeiras ferramentas de integração contínua mais robustas (o projeto surgiu em 2004), o que fez com que muitas empresas passassem a utilizá-lo. Hoje em dia temos mais opções como Gitlab CI, CodePipeline, Bitbucket Pipeline, CircleCi e etc.
 
-#### Componentes Jenkins
-**Agent** - Ajuda a execução de jobs em diversos locais como clouds, servidores locais entre outros
-**Build** - Processo de construção de artefatos a partir de steps pré-definidos que podem incluir testes, geração de imagens, entre outros.
-**Jobs** - São as execuções que ocorrem após a configuração dos steps pré-definidos
-**Pipelines** - É a composição de passos para validarmos código, escolhermos de onde o código será incluído, bem como scripts, relatórios e outros componentes
-**Plugins** - São extensões do Jenkins, geralmente utilizadas para facilitar integrações com outras ferramentas e serviços. Ex: Integração com AWS
+### Componentes Jenkins
+* **Agent:** Ajuda a execução de jobs em diversos locais como clouds, servidores locais entre outros
+* **Build:** Processo de construção de artefatos a partir de steps pré-definidos que podem incluir testes, geração de imagens, entre outros.
+* **Jobs:** São as execuções que ocorrem após a configuração dos steps pré-definidos
+* **Pipelines:** É a composição de passos para validarmos código, escolhermos de onde o código será incluído, bem como scripts, relatórios e outros componentes
+* **Plugins:** São extensões do Jenkins, geralmente utilizadas para facilitar integrações com outras ferramentas e serviços. Ex: Integração com AWS
 
-#### Plugins
+### Plugins
 Os plugins são bastante importantes no Jenkins, eles funcionam como pequenas ferramentas dentro do Jenkins.
 Existe uma vasta gama de plugins no Jenkins que podem ser usados para as mais variadas funções, como por exempo: notificações de Jobs, deploy de linguagens específicas, integração com ferramentas de análise de código e testes unitários, entre outros.
 Podemos ter vários plugins instalados, porém, por questões de segurança, é uma boa prática observar se eles estão sendo atualizados com frequência e não deixar de atualizá-los.
 
-#### Job
+### Job
 Um Job no Jenkins é toda atividade automatizada.
 Existem, atualmente 6 tipos de Jobs que podem ser criados no Jenkins, são eles:
-* **Estilo Livre** - O estilo mais antigo do Jenkins, com ele, podemos criar diversos tipos de automações, integrar com repositórios e até utilizar de forma flexível com os inúmeros plugins existentes na base do Jenkins.
-* **Pipeline** - Esse tipo é usado para criar automações mais complexas, permite um nível de flexibilidade maior que o estilo livre.
-* **Multiplas Configurações** - Funciona como um Job estilo livre, porém, é bastante recomendado para projetos que necessitam de um número variado de configurações, como por exemplo, teste em mais de um ambiente.
-* **Folder** - É um recurso que possibilita a organização de Jobs em estruturas de pastas.
-* **Multibranch Pipeline** - Esse estilo de Job faz uma análise de repositórios e gera automaticamente um Job para cada branch encontrado no repositório analisado.
-* **Organization Folder** - Cria um conjunto de subpastas e várias ramificações verificando repositórios.
+* **Estilo Livre:** O estilo mais antigo do Jenkins, com ele, podemos criar diversos tipos de automações, integrar com repositórios e até utilizar de forma flexível com os inúmeros plugins existentes na base do Jenkins.
+* **Pipeline:** Esse tipo é usado para criar automações mais complexas, permite um nível de flexibilidade maior que o estilo livre.
+* **Multiplas Configurações:** Funciona como um Job estilo livre, porém, é bastante recomendado para projetos que necessitam de um número variado de configurações, como por exemplo, teste em mais de um ambiente.
+* **Folder:** É um recurso que possibilita a organização de Jobs em estruturas de pastas.
+* **Multibranch Pipeline:** Esse estilo de Job faz uma análise de repositórios e gera automaticamente um Job para cada branch encontrado no repositório analisado.
+* **Organization Folder:** Cria um conjunto de subpastas e várias ramificações verificando repositórios.
 
 O tipo de Jobs mais apropriado depende da necessidade e das particularidades de cada projeto.
 
-#### Comandos Jenkins
+### Comandos Jenkins
 
 **1.** Criar um volume jenkins 
 * `docker volume create jenkins-data`

@@ -177,6 +177,8 @@ O tipo de Jobs mais apropriado depende da necessidade e das particularidades de 
     ```
 ***
 
+${JENKINS_HOME}/PATH
+
 $ docker volume create jenkins-data -> gerar persistência
 
     $ docker container run --name jenkins –-restart always --detach --privileged --volume jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts

@@ -63,17 +63,24 @@ O Jenkins pode ser configurado para monitorar qualquer alteração de código em
 Por questões de segurança do próprio Jenkins, um `hash` é gerado em cada nova instalação.
 Jenkins se tornou popular por ter sido uma das primeiras ferramentas de integração contínua mais robustas (o projeto surgiu em 2004), o que fez com que muitas empresas passassem a utilizá-lo. Hoje em dia temos mais opções como Gitlab CI, CodePipeline, Bitbucket Pipeline, CircleCi e etc.
 
+> Diretório principal de arquivos do jenkins: `/var/jenkinks_home`
+
+> Quando o Jenkins é instalado pela primeira vez é necessário coletar a senha inicial através dos logs ou pelo arquivo `initialAdminPassword`.
+
+> Através dos logs de output identificamos problemas na execução das pipelines.
+
 ### Componentes Jenkins
-* **Agent:** Ajuda a execução de jobs em diversos locais como clouds, servidores locais entre outros
+* **Agents:** São nós terceiros que rodam as tasks para distribuir a carga, ajudam a execução de jobs em diversos locais como clouds, servidores locais, entre outros.
 * **Build:** Processo de construção de artefatos a partir de steps pré-definidos que podem incluir testes, geração de imagens, entre outros.
 * **Jobs:** São as execuções que ocorrem após a configuração dos steps pré-definidos
 * **Pipelines:** É a composição de passos para validarmos código, escolhermos de onde o código será incluído, bem como scripts, relatórios e outros componentes
 * **Plugins:** São extensões do Jenkins, geralmente utilizadas para facilitar integrações com outras ferramentas e serviços. Ex: Integração com AWS
 
 ### Plugins
-Os plugins são bastante importantes no Jenkins, eles funcionam como pequenas ferramentas dentro do Jenkins.
+Os plugins são bastante importantes no Jenkins, eles funcionam como pequenas ferramentas/extensões que podemos integrar com outros componentes.
 Existe uma vasta gama de plugins no Jenkins que podem ser usados para as mais variadas funções, como por exempo: notificações de Jobs, deploy de linguagens específicas, integração com ferramentas de análise de código e testes unitários, entre outros.
 Podemos ter vários plugins instalados, porém, por questões de segurança, é uma boa prática observar se eles estão sendo atualizados com frequência e não deixar de atualizá-los.
+Plugins úteis: BlueOcean, GIT, Sonarqube Scannerm, Mailer, Kubernetes, Docker plugin
 
 ### Job
 Um Job no Jenkins é toda atividade automatizada.
@@ -86,6 +93,12 @@ Existem, atualmente 6 tipos de Jobs que podem ser criados no Jenkins, são eles:
 * **Organization Folder:** Cria um conjunto de subpastas e várias ramificações verificando repositórios.
 
 O tipo de Jobs mais apropriado depende da necessidade e das particularidades de cada projeto.
+
+### Jenkinsfile
+Usado para incluir as informações da pipeline em arquivos segmentados, podendo assim persistir essas configurações de forma externa.
+
+> **Pipeline scriptada:** permite que possamos usar funções comuns.
+> **Pipeline decalrativa:** permite que possamos usar nossas próprias funções.
 
 ### Comandos Jenkins
 
@@ -183,3 +196,72 @@ $ docker volume create jenkins-data -> gerar persistência
 
     $ docker container run --name jenkins –-restart always --detach --privileged --volume jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
 docker container run --name jenkins --restart always --detach --privileged --volume jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+
+
+***
+
+30/01/2023
+
+**1.** Instalar o plugin *SonarQube Scanner* no Jenkins
+Credentials Plugin
+Authentication Tokens API Plugin
+
+**2.** Subir o container sonar
+* `docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube`
+* `--cpus 4`
+* primeiro acesso:
+    * login: admin
+    * senha: admin
+
+**3.** Configurações tarefa
+* URL repositório: https://github.com/Talits/sonar-scanning-examples.git
+* Passos de construção → Execute SonarQube Scanner → Analysis properties:
+```
+    sonar.projectKey=projetodagabi
+    sonar.projectName=projetodagabi
+    sonar.projectVersion=v1.0
+
+    sonar.sources=sonarqube-scanner/src/python/
+    sonar.python.coveragePlugin=cobertura
+    sonar.python.coverage.reportPaths=coverage.xml
+```
+
+
+
+
+***
+
+## Projeto final
+
+https://github.com/Talits/Jenkinsfile-projetoFinal
+
+Docker plugin
+Versão1.3.0
+
+
+java -jar agent.jar -jnlpUrl http://localhost:8080/manage/computer/worker/jenkins-agent.jnlp -secret @secret-file -workDir "."
+
+https://www.java.com/download/ie_manual.jsp
+
+https://www.java.com/en/download/help/mac_install.html
+https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-20-04
+
+
+https://github.com/Talits/ada-ci/
+
+http://localhost:8080/jnlpJars/agent.jar
+
+-> ter o java na maquina
+-> subir o agent atraves da configuração de node
+   -> criar novo no 
+   -> agent permamente
+   -> diretorio de raiz remoto .
+   -> criar agent
+
+-> Jenkinsfile
+   -> nome do no configurado
+   -> configurar plugin docker e credenciais dockerhub
+
+   https://github.com/Talits/Jenkinsfile-projetoFinal/blob/main/Jenkinsfile
+
+   https://github.com/Talits/ada-ci/ projeto com o codigo, ta bno class tb

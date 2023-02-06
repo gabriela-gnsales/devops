@@ -14,6 +14,8 @@ Controladores de versão com GIT, SVN são úteis  nesse processo, onde também 
 * **Test:** Processo de validação e checagem de saúde do código.
 * **Deploy:** Processo de implantação do código após a parte de integração.
 
+> Para garantir qualidade no deploy é importante fazer a separação em ambientes distintos e a validação através de testes.
+
 ### Pipelines
 Pipelines são como esteiras de código, tal qual uma linha de montagem com diversos steps, processos de checagem para garantir a qualidade do nosso produto: **o Código Produtivo**.
 Esteiras com diversos passos que geram artefatos.
@@ -81,6 +83,9 @@ Os plugins são bastante importantes no Jenkins, eles funcionam como pequenas fe
 Existe uma vasta gama de plugins no Jenkins que podem ser usados para as mais variadas funções, como por exempo: notificações de Jobs, deploy de linguagens específicas, integração com ferramentas de análise de código e testes unitários, entre outros.
 Podemos ter vários plugins instalados, porém, por questões de segurança, é uma boa prática observar se eles estão sendo atualizados com frequência e não deixar de atualizá-los.
 Plugins úteis: BlueOcean, GIT, Sonarqube Scannerm, Mailer, Kubernetes, Docker plugin
+
+> **Sonarqube:** avalia a qualidade do código.
+> **Quality Gate:** um "portão" que mostra a cobertura do código através de validações.
 
 ### Job
 Um Job no Jenkins é toda atividade automatizada.
@@ -200,7 +205,7 @@ docker container run --name jenkins --restart always --detach --privileged --vol
 
 ***
 
-30/01/2023
+## SonarQube Scanner
 
 **1.** Instalar o plugin *SonarQube Scanner* no Jenkins
 Credentials Plugin
@@ -226,8 +231,27 @@ Authentication Tokens API Plugin
     sonar.python.coverage.reportPaths=coverage.xml
 ```
 
+***
 
+## Gitlab
 
+O GitLab é muito parecido com o Github, armazenando código, permitindo a criação de documentações e etc.
+
+### GitlabCI
+
+O GitLabCI é a ferramenta de CI, possuindo suas particularidades como a configuração por yaml, alguns templates que facilitam a configuração e etc.
+
+#### Runners
+
+Os runners são como os agentes do jenkins, nos auxiliando a rodar nossas pipelines de forma distribuída, pois distribuem a carga das tarefas a serem executadas.
+
+> Consulte o link abaixo e através dos templates de exemplo liste 5 possibilidades que podem ser feitas usando **gitlab-ci.yml**.
+> https://github.com/gitlabhq/gitlabhq/blob/master/doc/ci/examples/index.md
+* 1. Configurar projetos Android, garantindo que os aplicativos compilem e passem nos testes unitários e funcionais.
+* 2. Melhorar o processo de desenvolvimento de jogos.
+* 3. Realizar testes e deploy de aplicações em Python.
+* 4. Executar tarefas (jobs) paralelas e acelerar os testes de Ruby e JavaScript.
+* 5. Realizar o deploy de aplicativos Spring Boot no Cloud Foundry.
 
 ***
 

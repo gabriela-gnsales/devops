@@ -289,3 +289,5 @@ http://localhost:8080/jnlpJars/agent.jar
    https://github.com/Talits/Jenkinsfile-projetoFinal/blob/main/Jenkinsfile
 
    https://github.com/Talits/ada-ci/ projeto com o codigo, ta bno class tb
+
+   https://github.com/Talits/Jenkinsfile-projetoFinal/blob/feat/deploy/Jenkinsfile

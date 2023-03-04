@@ -52,3 +52,11 @@ Definida como uma medida de quão bem os estados internos de um sistema podem se
 - Adicionar arquivo *docker-compose.yml* para criar o container que irá rodar a aplicação
 - Código para rodar o *docker-compose*: `docker compose up`
     - é possível colocar nele o comando para buildar direto a imagem do container, sem ter que fazer o passo anterior de subir a imagem do container antes
+
+***
+
+## LOGS
+
+Identificar métricas, um determinado comportamento, a causa de um problema... Ajuda a acompanhar a saúde da aplicação, transações de segurança, identificar um possível ataque, anomalias, gerar estatísticas...
+
+Em uma arquitetura de microsservições deve-se realizar a centralização dos logs.

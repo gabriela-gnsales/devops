@@ -39,4 +39,19 @@
 
 ***
 
-> Como podemos monitorar filas e quais ferramentas nos ajudam com isso
+> Como podemos monitorar filas e quais ferramentas nos ajudam com isso?
+
+Existem várias ferramentas e abordagens para monitorar filas de serviços de mensageria, dependendo da tecnologia que está sendo usada para implementar o serviço.
+Caso o serviço de mensagens usado seja algum da AWS, por exemplo, como o Amazon Simple Queue Service (SQS) ou o Amazon Simple Notification Service (SNS), pode-se usar o Amazon CloudWatch para monitorar filas e mensagens. O CloudWatch pode fornecer dados em tempo real e alarmes para alertar quando algo não estiver funcionando corretamente. O RabbitMQ, por sua vez, possui um plugin de monitoramento que permite monitorar as filas e as conexões de consumidor, bem como o tráfego de rede.
+
+***
+
+* https://redis.com/redis-enterprise/redis-insight/
+* https://redis.com/redis-enterprise/redis-insight/
+* `docker run -d -p 6379:6379 -i -t redis:latest`
+
+Instalar o cli do redis
+* https://redis.io/download/
+
+* https://redis.com/blog/get-redis-cli-without-installing-redis-server/
+* https://redis.io/commands/?alpha=l

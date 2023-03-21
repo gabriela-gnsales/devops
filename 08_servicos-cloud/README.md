@@ -55,3 +55,9 @@ Instalar o cli do redis
 
 * https://redis.com/blog/get-redis-cli-without-installing-redis-server/
 * https://redis.io/commands/?alpha=l
+
+***
+
+**Escreva o que você entendeu sobre estratégias de cache**
+
+Entendi que o uso da estrutra de cache traz vários benefícios para a aplicação, sendo um deles a contribuição na questão da latência, uma vez que reduz o tempo de resposta das requisições, já que armazena dados temporários que são mais frequentemente requisitados/buscados pelos usuários. Com isso, também poupa a utilização de recursos do servidor, isto é, diminui a sua carga de processamento.

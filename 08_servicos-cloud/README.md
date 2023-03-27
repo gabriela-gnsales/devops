@@ -61,3 +61,11 @@ Instalar o cli do redis
 **Escreva o que você entendeu sobre estratégias de cache**
 
 Entendi que o uso da estrutra de cache traz vários benefícios para a aplicação, sendo um deles a contribuição na questão da latência, uma vez que reduz o tempo de resposta das requisições, já que armazena dados temporários que são mais frequentemente requisitados/buscados pelos usuários. Com isso, também poupa a utilização de recursos do servidor, isto é, diminui a sua carga de processamento.
+
+***
+
+* https://play.min.io:9443/login
+* minioadmin
+* https://play.min.io:9443/access-keys
+* `docker run -p 9000:9000 -p 9001:9001 quay.io/minio/minio server /data --console-address ":9001"`
+* `pip3 install minio`
